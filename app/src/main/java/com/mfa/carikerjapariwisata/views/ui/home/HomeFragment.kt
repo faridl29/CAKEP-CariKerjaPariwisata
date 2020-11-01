@@ -1,5 +1,6 @@
 package com.mfa.carikerjapariwisata.views.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
+import com.ethanhua.skeleton.Skeleton
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.MainPlaceAdapter
 import com.mfa.carikerjapariwisata.adapter.PlaceAdapter
+import com.mfa.carikerjapariwisata.model.Place
 import com.mfa.carikerjapariwisata.utils.RecyclerViewAnimation
+import com.mfa.carikerjapariwisata.views.ui.place_detail.PlaceDetail
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -50,6 +53,17 @@ class HomeFragment : Fragment() {
                 this.layoutManager = layoutManager
                 this.hasFixedSize()
             }
+
+            indicator.attachToRecyclerView(rvMainPlaces)
+
+            mainPlaceAdapter.setOnItemClickCallback(object : MainPlaceAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: Place) {
+                    val intent = Intent(activity, PlaceDetail::class.java)
+                    intent.putExtra(PlaceDetail.EXTRA_PLACE, data)
+                    startActivity(intent)
+                }
+
+            })
 
             rvMainPlaces.post(Runnable { // Shift the view to snap  near the center of the screen.
                 // This does not have to be precise.

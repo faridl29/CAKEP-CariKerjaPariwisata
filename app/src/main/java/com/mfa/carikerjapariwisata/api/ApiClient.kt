@@ -4,7 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    var BASE_URL = "http://192.168.43.85/CAKEP-Backend/api/"
+    val BASE_URL = "http://192.168.43.85/CAKEP-Backend/api/"
+    val IMAGE_URL = "http://192.168.43.85/CAKEP-Backend/images/"
 
     fun getClient(): Retrofit {
         val retrofit = Retrofit.Builder()
@@ -13,10 +14,6 @@ object ApiClient {
             .build()
 
         return retrofit
-    }
-
-    object create {
-        val service = getClient().create(ApiClient::class.java)
     }
 
 }

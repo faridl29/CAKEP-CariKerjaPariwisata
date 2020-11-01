@@ -1,0 +1,255 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.mfa.carikerjapariwisata.views.ui.job_detail.JobDetailViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/lyt_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:id="@+id/lyt_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/bt_close"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@android:color/white"
+                        app:srcCompat="@drawable/ic_close"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="0dp" />
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/name_toolbar"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:text="New event"-->
+<!--                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"-->
+<!--                        android:textColor="@android:color/white" />-->
+
+<!--                    <ImageButton-->
+<!--                        android:layout_width="?attr/actionBarSize"-->
+<!--                        android:layout_height="?attr/actionBarSize"-->
+<!--                        android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--                        android:tint="@android:color/white"-->
+<!--                        app:srcCompat="@drawable/ic_baseline_bookmark_border_24"-->
+<!--                        tools:ignore="VectorDrawableCompat" />-->
+
+                </LinearLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_20sdp">
+
+                            <RelativeLayout
+                                android:id="@+id/logo"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_80sdp">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:cardCornerRadius="@dimen/_10sdp">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/_80sdp"
+                                        android:layout_height="@dimen/_80sdp"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/im_slider1" />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <ImageView
+                                    android:layout_width="@dimen/_40sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:src="@drawable/ic_bookmark"
+                                    android:layout_alignParentRight="true"/>
+
+                                <TextView
+                                    android:id="@+id/tvCreatedAt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="4 hari yang lalu"
+                                    android:textColor="@color/black_40"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentBottom="true"/>
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tvTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.title}"
+                                android:layout_below="@+id/logo"
+                                android:textColor="@color/black_60"
+                                android:textSize="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_5sdp"/>
+
+                            <TextView
+                                android:id="@+id/tvPlace"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.place}"
+                                android:layout_below="@+id/tvTitle"
+                                android:textColor="@color/black_40"
+                                android:textSize="@dimen/_12sdp"/>
+
+                            <TextView
+                                android:id="@+id/tvTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.dateEnd}"
+                                android:layout_below="@+id/tvPlace"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/_12sdp"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_7sdp"
+                        android:background="@color/black_5"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardElevation="@dimen/_1sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_20sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/job_desk"
+                                android:textSize="@dimen/_12sdp"
+                                android:textColor="@color/black_60"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvJobDesk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.desc}"
+                                android:textColor="@color/black_40"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lineSpacingExtra="@dimen/_1sdp"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/gaji"
+                                android:textSize="@dimen/_12sdp"
+                                android:textColor="@color/black_60"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvGaji"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.sallary}"
+                                android:textColor="@color/black_40"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lineSpacingExtra="@dimen/_1sdp"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/grey_3"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <Button
+                android:id="@+id/btnApplyJob"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="@dimen/_10sdp"
+                android:background="@drawable/bg_button_primary"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textColor="@color/white"
+                android:text="Lamar Sekarang"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/_10sdp"
+                android:background="@drawable/bg_button_green_soft"
+                android:textColor="@color/white"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="Share"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

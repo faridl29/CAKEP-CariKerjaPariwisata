@@ -1,6 +1,24 @@
 <resources>
     <string name="app_name">Cari Kerja Pariwisata</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_job">Job</string>
+    <string name="title_profile">Profile</string>
+    <string name="galeri">Galeri</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="harga_tiket_masuk">Harga Tiket Masuk</string>
+    <string name="jam_buka">Jam Buka</string>
+    <string name="read_more">Read more</string>
+    <string name="pekerjaan_terbaru">Pekerjaan Terbaru</string>
+    <string name="buat_lowongan">Buat Lowongan</string>
+    <string name="have_job">Apakah anda memiliki lowongan pekerjaan?</string>
+    <string name="page_job">Temukan Pekerjaan Impian Anda</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="edit">Edit</string>
+    <string name="job_desk">Job Desk</string>
+    <string name="gaji">Gaji</string>
 </resources>

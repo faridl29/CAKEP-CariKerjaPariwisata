@@ -10,8 +10,14 @@ import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.mfa.carikerjapariwisata.R
+import com.mfa.carikerjapariwisata.api.ApiClient
 import com.mfa.carikerjapariwisata.model.Place
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.list_main_places.view.*
 import kotlinx.android.synthetic.main.list_places.view.*
+import kotlinx.android.synthetic.main.list_places.view.tvTitle
 
 
 class PlaceAdapter internal constructor(private val places: List<Place>) :
@@ -40,6 +46,11 @@ class PlaceAdapter internal constructor(private val places: List<Place>) :
             with(itemView) {
                 tvTitle.text = place.place_name
                 tvCity.text = place.place_city
+                Picasso.with(context).load(ApiClient.IMAGE_URL+ (place.photo_main))
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .error(R.drawable.im_slider1)
+                    .into(ivPhoto)
                 if(lastItem){
 //                    val params = ActionMenuView.LayoutParams(
 //                        ActionMenuView.LayoutParams.WRAP_CONTENT,

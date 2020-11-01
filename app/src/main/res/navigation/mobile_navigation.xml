@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.mfa.carikerjapariwisata.views.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_job"
+        android:name="com.mfa.carikerjapariwisata.views.ui.job.JobFragment"
+        android:label="@string/title_job"
+        tools:layout="@layout/fragment_job" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.mfa.carikerjapariwisata.views.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_profile"
+        android:name="com.mfa.carikerjapariwisata.views.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

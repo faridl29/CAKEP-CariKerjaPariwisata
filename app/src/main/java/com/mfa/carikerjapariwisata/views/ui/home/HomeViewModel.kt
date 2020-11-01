@@ -42,7 +42,7 @@ class HomeViewModel : ViewModel() {
 
                 callTagihan?.enqueue(object: retrofit2.Callback<GetPlaces?>{
                     override fun onFailure(call: retrofit2.Call<GetPlaces?>?, t: Throwable?) {
-                        TODO("Not yet implemented")
+                        _response.value = "Tidak dapat terhubung ke server!"
                     }
 
                     override fun onResponse(

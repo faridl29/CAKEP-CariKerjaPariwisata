@@ -8,6 +8,7 @@
     <color name="black">#000000</color>
     <color name="yellow">#F2C94C</color>
     <color name="green">#27AE60</color>
+    <color name="green_soft">#6FCF97</color>
     <color name="red">#EB5757</color>
 
     <color name="grey_3">#f7f7f7</color>
@@ -29,5 +30,9 @@
     <color name="black_30">#4D000000</color>
     <color name="black_20">#33000000</color>
     <color name="black_10">#1A000000</color>
+    <color name="black_5">#0D000000</color>
     <color name="black_0">#00000000</color>
+
+    <color name="fb_layout">#994267B2</color>
+    <color name="google_layout">#99EA4335</color>
 </resources>

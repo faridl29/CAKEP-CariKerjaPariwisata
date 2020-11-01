@@ -22,7 +22,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/ivMainPhoto"
+                    android:id="@+id/ivPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/im_tourism1"
@@ -63,9 +63,9 @@
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_address"/>
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:src="@drawable/ic_address" />
 
                         <TextView
                             android:id="@+id/tvCity"
@@ -85,8 +85,8 @@
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
                             android:src="@drawable/ic_love"/>
 
                         <TextView
@@ -114,6 +114,7 @@
                 app:layout_anchor="@id/view"
                 app:fabCustomSize="@dimen/_25sdp"
                 app:layout_anchorGravity="bottom|right|end"
+                android:clickable="true"
                 />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,6 +8,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_180sdp"
+        android:layout_marginRight="@dimen/_2sdp"
+        android:layout_marginLeft="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_20sdp"
         app:cardCornerRadius="@dimen/_20sdp">
 
@@ -16,6 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/ivMainPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/im_slider1"
@@ -49,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pantai Indrayanti"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/black_60"
                 android:layout_marginBottom="@dimen/_2sdp"/>
 
@@ -75,7 +78,7 @@ kota Yogyakarta yang terkenal dengan fwfwfwfwfwfwfw"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Read more"
+                    android:text="@string/read_more"
                     android:textColor="@color/green"
                     android:textSize="@dimen/_8sdp"
                     android:layout_marginRight="@dimen/_5sdp"/>
