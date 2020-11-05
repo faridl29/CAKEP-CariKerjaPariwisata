@@ -38,6 +38,7 @@
                 android:textColor="@android:color/white" />
 
             <ImageButton
+                android:id="@+id/ibSubmit"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -83,19 +84,24 @@
                     android:background="@color/grey_5">
 
                     <ImageView
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:id="@+id/ivLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:src="@drawable/ic_image"
-                        app:tint="@color/black_20" />
+                        android:padding="@dimen/_20sdp"
+                        android:scaleType="fitXY" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/llSelectPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tvLogoName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tambah Logo"
@@ -116,6 +122,7 @@
                 android:textSize="@dimen/_12sdp"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTitle"
                 android:layout_height="@dimen/_40sdp"
                 android:maxLength="50"
                 style="@style/TextInputCreateJob"/>
@@ -129,6 +136,7 @@
                 android:textSize="@dimen/_12sdp"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPlace"
                 android:layout_height="@dimen/_40sdp"
                 android:maxLength="100"
                 style="@style/TextInputCreateJob"/>
@@ -218,6 +226,7 @@
                 android:textSize="@dimen/_12sdp"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSallary"
                 android:layout_height="@dimen/_40sdp"
                 style="@style/TextInputCreateJob"/>
 
@@ -230,6 +239,7 @@
                 android:textSize="@dimen/_12sdp"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDesc"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"

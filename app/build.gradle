@@ -86,4 +86,7 @@ dependencies {
     implementation 'com.ethanhua:skeleton:1.1.2'
     implementation 'io.supercharge:shimmerlayout:2.1.0'
 
+    //for image crop
+    implementation "com.theartofdev.edmodo:android-image-cropper:2.4.7"
+
 }

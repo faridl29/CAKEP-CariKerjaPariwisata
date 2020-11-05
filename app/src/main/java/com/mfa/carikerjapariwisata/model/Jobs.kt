@@ -11,5 +11,7 @@ data class Jobs(
     var job_date_end: String? = null,
     var job_sallary: String? = null,
     var job_city: String? = null,
-    var job_desc: String? = null
+    var job_desc: String? = null,
+    var photo: String? = null,
+    var user_id: String? = null
 ): Parcelable
