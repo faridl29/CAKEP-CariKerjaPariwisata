@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.mfa.carikerjapariwisata"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -88,5 +88,11 @@ dependencies {
 
     //for image crop
     implementation "com.theartofdev.edmodo:android-image-cropper:2.4.7"
+
+    //sweetalert
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
+    //swipe refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }

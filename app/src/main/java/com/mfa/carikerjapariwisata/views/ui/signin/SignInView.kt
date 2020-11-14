@@ -1,9 +1,9 @@
-package com.mfa.carikerjapariwisata.views.ui.create_job
+package com.mfa.carikerjapariwisata.views.ui.signin
 
 import com.mfa.carikerjapariwisata.views.base.View
 
-interface CreateJobView : View{
+interface SignInView : View {
     fun onSuccess()
-
     fun onFailed(error: String)
+    fun onLogged()
 }

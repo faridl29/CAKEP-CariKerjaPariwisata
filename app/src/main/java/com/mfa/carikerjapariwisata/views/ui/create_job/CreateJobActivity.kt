@@ -8,12 +8,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
 import com.mfa.carikerjapariwisata.BuildConfig
+import com.mfa.carikerjapariwisata.MainActivity
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.api.ApiClient
 import com.mfa.carikerjapariwisata.api.ApiInterface
@@ -35,44 +37,30 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CreateJobActivity : AppCompatActivity() {
-    private lateinit var createJobViewModel: CreateJobViewModel
-
+class CreateJobActivity : AppCompatActivity(), CreateJobView {
+    private lateinit var presenter: CreateJobPresenter
     private var filePath: String? = null
-    private val PICK_PHOTO = 1958
+    private var fileName: String? = null
     private val REQUEST_EXTERNAL_STORAGE = 1
     private val PERMISSIONS_STORAGE = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
     private var mImageUri: Uri? = null
 
-    companion object {
-        //image pick code
-        private val IMAGE_PICK_CODE = 1000;
-        //Permission code
-        private val PERMISSION_CODE = 1001;
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_job)
-        createJobViewModel = ViewModelProviders.of(this).get(CreateJobViewModel::class.java)
+
+        presenter = CreateJobPresenter(this)
+        onAttachView()
 
         llSelectPhoto.setOnClickListener {
             addPhoto()
         }
 
         ibSubmit.setOnClickListener {
-            val jobs = Jobs(
-                job_title = "Test title",
-                job_city = "test city",
-                job_desc = "test job desc",
-                job_date_end = "12-12-2020",
-                job_place = "test place",
-                job_sallary = "test sallary",
-                photo = "ini_photo.jpg"
-            )
-            createJobViewModel.create_data(jobs, filePath)
+            validate_field()
         }
 
         val arrayList: ArrayList<String> = ArrayList()
@@ -90,106 +78,29 @@ class CreateJobActivity : AppCompatActivity() {
         spinner.setAdapter(arrayAdapter)
         
         etDateEnd.setOnClickListener {
-            val newCalendar: Calendar = Calendar.getInstance()
-
-            val datePickerDialog = DatePickerDialog(
-                this,
-                OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    val newDate: Calendar = Calendar.getInstance()
-                    newDate.set(year, monthOfYear, dayOfMonth)
-                    val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
-                etDateEnd.setText(dateFormatter.format(newDate.getTime()))
-                },
-                newCalendar.get(Calendar.YEAR),
-                newCalendar.get(Calendar.MONTH),
-                newCalendar.get(Calendar.DAY_OF_MONTH)
-            )
-
-            datePickerDialog.show()
+            showCalendarDialog()
         }
+
+        verifyStoragePermissions(this)
     }
 
-    private fun createData(jobs: Jobs, file: String?) {
-         var mInterface = ApiClient.getClient().create(ApiInterface::class.java)
+    fun showCalendarDialog() {
+        val newCalendar: Calendar = Calendar.getInstance()
 
-        val file = File(file)
-        //create RequestBody instance from file
-        //create RequestBody instance from file
-        val requestFile: RequestBody = RequestBody.create(
-            MediaType.parse("multipart/form-data"),
-            file
-        ) //allow image and any other file
+        val datePickerDialog = DatePickerDialog(
+            this,
+            OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val newDate: Calendar = Calendar.getInstance()
+                newDate.set(year, monthOfYear, dayOfMonth)
+                val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+                etDateEnd.setText(dateFormatter.format(newDate.getTime()))
+            },
+            newCalendar.get(Calendar.YEAR),
+            newCalendar.get(Calendar.MONTH),
+            newCalendar.get(Calendar.DAY_OF_MONTH)
+        )
 
-        // MultipartBody.Part is used to send also the actual file name
-
-        // MultipartBody.Part is used to send also the actual file name
-        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
-        mInterface.crete_job(
-            jobs.job_title,
-            body,
-            jobs.job_place,
-            jobs.job_date_end,
-            jobs.job_sallary,
-            jobs.job_city,
-            jobs.job_desc,
-            jobs.photo,
-            jobs.user_id
-        )?.enqueue(object : retrofit2.Callback<ResponseBody?> {
-
-            override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {
-                Toast.makeText(this@CreateJobActivity, t.toString(), Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<ResponseBody?>?, response: Response<ResponseBody?>?) {
-                Toast.makeText(this@CreateJobActivity, "Success", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-//        var _mInterface = ApiClient.getClient().create(ApiInterface::class.java)
-//        val file = File(file)
-//        //create RequestBody instance from file
-//        //create RequestBody instance from file
-//        val requestFile: RequestBody = RequestBody.create(
-//            MediaType.parse("multipart/form-data"),
-//            file
-//        ) //allow image and any other file
-//
-//        // MultipartBody.Part is used to send also the actual file name
-//
-//        // MultipartBody.Part is used to send also the actual file name
-//        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-//        var job = Job()
-//
-//
-//                val callTagihan: retrofit2.Call<ResponseBody?>? =
-//                    _mInterface.crete_job(
-//                        jobs.job_title,
-//                        body,
-//                        jobs.job_place,
-//                        jobs.job_date_end,
-//                        jobs.job_sallary,
-//                        jobs.job_city,
-//                        jobs.job_desc,
-//                        jobs.photo,
-//                        jobs.user_id
-//                    )
-//
-//                callTagihan?.enqueue(object: retrofit2.Callback<ResponseBody?>{
-//                    override fun onFailure(call: retrofit2.Call<ResponseBody?>?, t: Throwable?) {
-////                            _response.value = "Tidak dapat terhubung ke server!"
-//                    }
-//
-//                    override fun onResponse(
-//                        call: retrofit2.Call<ResponseBody?>?,
-//                        response: Response<ResponseBody?>?
-//                    ) {
-//
-//                    }
-//
-//            })
-
-
+        datePickerDialog.show()
     }
 
     fun verifyStoragePermissions(activity: Activity?) {
@@ -205,6 +116,50 @@ class CreateJobActivity : AppCompatActivity() {
                 PERMISSIONS_STORAGE,
                 REQUEST_EXTERNAL_STORAGE
             )
+        }
+    }
+
+    fun validate_field(){
+        if(tvLogoName.text.toString() == "Tambah Logo"){
+            tvLogoName.setError("Pilih Foto")
+            return
+        }
+        if(TextUtils.isEmpty(etTitle.text)){
+            etTitle.setError("Kolom judul harus diisi!")
+            return
+        }
+
+        if(TextUtils.isEmpty(etPlace.text)){
+            etPlace.setError("Kolom nama tempat pariwisata harus diisi!")
+            return
+        }
+
+        if(TextUtils.isEmpty(etDateEnd.text)){
+            etDateEnd.setError("Kolom batas lowongan harus diisi!")
+            return
+        }
+
+        if(TextUtils.isEmpty(etSallary.text)){
+            etSallary.setError("Kolom kisaran gaji harus diisi!")
+            return
+        }
+
+        if(TextUtils.isEmpty(etDesc.text)){
+            etDesc.setError("Kolom deskripsi pekerjaan harus diisi!")
+            return
+        }
+
+        if(!TextUtils.isEmpty(etTitle.text) && !TextUtils.isEmpty(etPlace.text) && !TextUtils.isEmpty(etDateEnd.text) && !TextUtils.isEmpty(etSallary.text) && !TextUtils.isEmpty(etDesc.text)){
+            val jobs = Jobs(
+                job_title = etTitle.text.toString(),
+                job_city = "test city",
+                job_desc = etDesc.text.toString(),
+                job_date_end = etDateEnd.text.toString(),
+                job_place = etPlace.text.toString(),
+                job_sallary = etSallary.text.toString(),
+                photo = fileName
+            )
+            presenter.createJob(jobs, filePath)
         }
     }
 
@@ -230,6 +185,7 @@ class CreateJobActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 val resultUri = result.uri
                 filePath = resultUri.path
+                fileName = filePath?.lastIndexOf("/")?.plus(1)?.let { filePath?.substring(it) }
                 mImageUri = resultUri
                 Picasso.with(this).load(mImageUri)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
@@ -237,12 +193,37 @@ class CreateJobActivity : AppCompatActivity() {
                     .error(R.mipmap.ic_launcher)
                     .into(ivLogo)
                 Picasso.with(this).invalidate(mImageUri)
+                tvLogoName.text = fileName
                 ivLogo.setPadding(0, 0, 0, 0)
+                tvLogoName.setError(null)
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
                 if (BuildConfig.DEBUG) error.printStackTrace()
+                Toast.makeText(this, error.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onSuccess() {
+        val intent  = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onFailed(error: String) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAttachView() {
+        presenter.onAttach(this)
+    }
+
+    override fun onDetachView() {
+        presenter.onDetach()
+    }
+
+    override fun onDestroy() {
+        onDetachView()
+        super.onDestroy()
     }
 
 }

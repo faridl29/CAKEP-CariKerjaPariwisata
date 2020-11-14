@@ -219,9 +219,10 @@
             android:id="@+id/rvPlaces"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/_20sdp"
             android:clipToPadding="false"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never"
+            android:paddingStart="@dimen/_20sdp"
+            android:paddingLeft="@dimen/_20sdp" />
 
     </LinearLayout>
 

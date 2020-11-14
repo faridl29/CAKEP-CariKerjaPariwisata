@@ -5,20 +5,21 @@ import com.mfa.carikerjapariwisata.model.GetPlaces
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 
 interface ApiInterface {
-    @GET("Place")
+    @GET("Place/get")
     fun getPlaceList(): Call<GetPlaces?>?
 
-    @GET("Job")
+//    @Headers(
+//        "Accept: application/json",
+//        "Content-type:application/json"
+//    )
+    @GET("Job/get")
     fun getJobList(): Call<GetJobs?>?
 
     @Multipart
-    @POST("Job")
+    @POST("Job/create")
     open fun crete_job(
         @Part("job_title") job_title: String?,
         @Part file: MultipartBody.Part?,
@@ -30,4 +31,19 @@ interface ApiInterface {
         @Part("photo") photo: String?,
         @Part("user_id") user_id: String?
     ): Call<ResponseBody?>?
+
+    @Multipart
+    @POST("Auth/login")
+    fun loginRequest(
+        @Part("email") email: String?,
+        @Part("password") password: String?
+    ): Call<ResponseBody?>?
+
+    @Multipart
+    @POST("Auth/register")
+    fun registerRequest(
+        @Part("email") email: String?,
+        @Part("password") password: String?,
+        @Part("fullname") fullname: String
+    ): Call<ResponseBody>
 }

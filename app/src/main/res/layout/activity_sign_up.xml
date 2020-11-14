@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorPrimary"
-    tools:context=".views.ui.signin.SignUpActivity">
+    tools:context=".views.ui.signup.SignUpActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/sign_up"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_40sdp"/>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_40sdp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,19 +107,31 @@
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
                 android:hint="Email atau telepon"
+                android:textColor="@color/black_40"
                 style="@style/TextInputLoginRegister"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:drawableRight="@drawable/ic_visibility_off"
+                android:textColor="@color/black_40"
+                android:drawableRight="@drawable/ic_visibility"
                 style="@style/TextInputLoginRegister"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etConfirmPassword"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
-                android:drawableRight="@drawable/ic_visibility_off"
+                android:textColor="@color/black_40"
+                android:drawableRight="@drawable/ic_visibility"
+                style="@style/TextInputLoginRegister"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFullname"
+                android:hint="Fullname"
+                android:textColor="@color/black_40"
                 style="@style/TextInputLoginRegister"/>
 
             <LinearLayout
@@ -142,10 +155,11 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btnSignup"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                    android:text="@string/sign_up"
+                android:text="@string/sign_up"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_14sdp"
                 android:background="@drawable/bg_button_white_border_blue"/>
@@ -166,6 +180,7 @@
                     android:layout_centerHorizontal="true"/>
 
                 <TextView
+                    android:id="@+id/tvSignin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
@@ -178,6 +193,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -21,69 +21,90 @@ import com.mfa.carikerjapariwisata.views.ui.place_detail.PlaceDetail
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeView {
 
-    // inisialisasi binding dan viewmodel
-    private lateinit var viewModel: HomeViewModel
-    val helper: SnapHelper = PagerSnapHelper()
-    val helper2: SnapHelper = PagerSnapHelper()
+    private lateinit var presenter: HomePresenter
+    private lateinit var root: View
+    private val helper: SnapHelper = PagerSnapHelper()
+    private val helper2: SnapHelper = PagerSnapHelper()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        viewModel.data.observe({ lifecycle }, {
-            val placeAdapter = PlaceAdapter(it)
-            val mainPlaceAdapter = MainPlaceAdapter(it)
-            val layoutManager =
-                RecyclerViewAnimation(activity, LinearLayoutManager.HORIZONTAL, false)
+        presenter = HomePresenter(root.context)
 
-            rvPlaces.apply {
-                this.adapter = placeAdapter
-                this.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                this.hasFixedSize()
-            }
-
-            rvMainPlaces.apply {
-                this.adapter = mainPlaceAdapter
-                this.layoutManager = layoutManager
-                this.hasFixedSize()
-            }
-
-            indicator.attachToRecyclerView(rvMainPlaces)
-
-            mainPlaceAdapter.setOnItemClickCallback(object : MainPlaceAdapter.OnItemClickCallback {
-                override fun onItemClicked(data: Place) {
-                    val intent = Intent(activity, PlaceDetail::class.java)
-                    intent.putExtra(PlaceDetail.EXTRA_PLACE, data)
-                    startActivity(intent)
-                }
-
-            })
-
-            rvMainPlaces.post(Runnable { // Shift the view to snap  near the center of the screen.
-                // This does not have to be precise.
-                val dx: Int =
-                    (rvMainPlaces.getWidth() - rvMainPlaces.getChildAt(0).getWidth()) / 2
-                rvMainPlaces.scrollBy(-dx, 0)
-                // Assign the LinearSnapHelper that will initially snap the near-center view.
-
-                helper2.attachToRecyclerView(rvMainPlaces)
-            })
-
-            helper.attachToRecyclerView(rvPlaces)
-        })
-
-        val data = viewModel.response.observe({ lifecycle }, {
-            if (it.isNotEmpty()) {
-                Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
-            }
-        })
+        onAttachView()
 
         return root
+    }
+
+    override fun onSuccess(result: List<Place>) {
+        val placeAdapter = PlaceAdapter(result)
+        val mainPlaceAdapter = MainPlaceAdapter(result)
+        val layoutManager =
+            RecyclerViewAnimation(activity, LinearLayoutManager.HORIZONTAL, false)
+
+        rvPlaces.apply {
+            this.adapter = placeAdapter
+            this.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            this.hasFixedSize()
+        }
+
+        rvMainPlaces.apply {
+            this.adapter = mainPlaceAdapter
+            this.layoutManager = layoutManager
+            this.hasFixedSize()
+        }
+
+        indicator.attachToRecyclerView(rvMainPlaces)
+
+        mainPlaceAdapter.setOnItemClickCallback(object : MainPlaceAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Place) {
+                val intent = Intent(activity, PlaceDetail::class.java)
+                intent.putExtra(PlaceDetail.EXTRA_PLACE, data)
+                startActivity(intent)
+            }
+
+        })
+
+        rvMainPlaces.post(Runnable { // Shift the view to snap  near the center of the screen.
+            // This does not have to be precise.
+            val dx: Int =
+                (rvMainPlaces.getWidth() - rvMainPlaces.getChildAt(0).getWidth()) / 2
+            rvMainPlaces.scrollBy(-dx, 0)
+            // Assign the LinearSnapHelper that will initially snap the near-center view.
+
+            helper2.attachToRecyclerView(rvMainPlaces)
+        })
+
+        helper.attachToRecyclerView(rvPlaces)
+        presenter.onCleared()
+    }
+
+    override fun onFailed(error: String) {
+        Toast.makeText(root.context, error, Toast.LENGTH_SHORT).show()
+        presenter.onCleared()
+    }
+
+    override fun onEmpty() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onAttachView() {
+        presenter.onAttach(this)
+        presenter.getPlaceList()
+    }
+
+    override fun onDetachView() {
+        presenter.onDetach()
+    }
+
+    override fun onDestroy() {
+        onDetachView()
+        super.onDestroy()
     }
 }
