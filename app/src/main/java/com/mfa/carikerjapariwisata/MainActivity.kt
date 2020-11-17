@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         globalFunction = GlobalFunction(this)
 
         if(intent.getStringExtra("request_code") == REQUEST_CODE) {
-            globalFunction?.createSnackBar(layout, "Selamat datang di aplikasi Cari Kerja Pariwisata", R.color.colorPrimary)
+            globalFunction?.createSnackBar(container, "Selamat datang di aplikasi Cari Kerja Pariwisata", R.color.colorPrimary)
         }
 
         val navigation =

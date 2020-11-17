@@ -69,6 +69,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_50sdp"
                 android:fillViewport="true">
 
                 <LinearLayout
@@ -147,7 +148,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@{viewModel.dateEnd}"
                                 android:layout_below="@+id/tvPlace"
-                                android:textColor="@color/red"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/_12sdp"/>
 
                         </RelativeLayout>

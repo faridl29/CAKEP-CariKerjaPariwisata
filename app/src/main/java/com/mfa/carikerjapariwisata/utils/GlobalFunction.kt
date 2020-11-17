@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.snackbar.Snackbar
@@ -15,7 +17,7 @@ import com.mfa.carikerjapariwisata.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class GlobalFunction(private var con: Context) {
-    public fun createSnackBar(layout: NestedScrollView, message: String, color: Int){
+    fun createSnackBar(layout: NestedScrollView, message: String, color: Int){
         val snack: Snackbar = Snackbar.make(layout, message, Snackbar.LENGTH_LONG)
         val view: View = snack.view
         view.setBackgroundColor(ContextCompat.getColor(con, color))
@@ -25,7 +27,28 @@ class GlobalFunction(private var con: Context) {
         snack.show()
     }
 
-    public fun handleDrawableClickEditText(editText: EditText){
+    fun createSnackBar(layout: ConstraintLayout, message: String, color: Int){
+        val snack: Snackbar = Snackbar.make(layout, message, Snackbar.LENGTH_LONG)
+        val view: View = snack.view
+        view.setBackgroundColor(ContextCompat.getColor(con, color))
+        val params: FrameLayout.LayoutParams = view.getLayoutParams() as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.setLayoutParams(params)
+        snack.show()
+    }
+
+    fun createSnackBar(layout: LinearLayout, message: String, color: Int){
+        val snack: Snackbar = Snackbar.make(layout, message, Snackbar.LENGTH_LONG).apply {
+            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).maxLines = 10}
+        val view: View = snack.view
+        view.setBackgroundColor(ContextCompat.getColor(con, color))
+        val params: FrameLayout.LayoutParams = view.getLayoutParams() as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.setLayoutParams(params)
+        snack.show()
+    }
+
+    fun handleDrawableClickEditText(editText: EditText){
         editText.setOnTouchListener(View.OnTouchListener { v, event ->
             val DRAWABLE_RIGHT = 2
             if (event.action == MotionEvent.ACTION_UP) {

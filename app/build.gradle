@@ -95,4 +95,7 @@ dependencies {
     //swipe refresh layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+    //converter for json
+    implementation 'com.squareup.retrofit2:converter-scalars:2.0.1'
+
 }

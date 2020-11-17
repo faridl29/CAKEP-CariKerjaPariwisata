@@ -18,9 +18,10 @@ class ProfilePresenter(private var con: Context) : Presenter<ProfileView> {
 
     fun getDataUser(){
         val sharedPreferences = SharedPrefManager(con)
-        val name = sharedPreferences.spFullName
-        val profile = sharedPreferences.spProfile
-        val email = sharedPreferences.spEmail
+        val name : String? = sharedPreferences.spFullName
+        print(name)
+        val profile : String? = sharedPreferences.spProfile
+        val email: String? = sharedPreferences.spEmail
         mView?.onSuccessGetData(name, profile, email)
     }
 

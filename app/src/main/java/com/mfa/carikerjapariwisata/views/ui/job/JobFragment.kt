@@ -57,11 +57,11 @@ class JobFragment : Fragment() {
 
         })
 
-        val data = jobViewModel.response.observe({ lifecycle }, {
-            if (it.isNotEmpty()) {
-                Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
-            }
-        })
+//        val data = jobViewModel.response.observe({ lifecycle }, {
+//            if (it.isNotEmpty()) {
+//                Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+//            }
+//        })
 
         return root
     }

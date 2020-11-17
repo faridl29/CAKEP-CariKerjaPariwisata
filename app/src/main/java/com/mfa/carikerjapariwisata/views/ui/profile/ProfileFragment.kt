@@ -8,7 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.mfa.carikerjapariwisata.R
+import com.mfa.carikerjapariwisata.api.ApiClient
+import com.mfa.carikerjapariwisata.views.ui.posted_job.PostedJobActivity
 import com.mfa.carikerjapariwisata.views.ui.signin.SignInActivity
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), ProfileView {
@@ -28,6 +33,13 @@ class ProfileFragment : Fragment(), ProfileView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        presenter?.getDataUser()
+
+        lytPostedJob.setOnClickListener {
+            val intent = Intent(activity, PostedJobActivity::class.java)
+            startActivity(intent)
+        }
 
         btnLogout.setOnClickListener {
             logout()
@@ -49,7 +61,14 @@ class ProfileFragment : Fragment(), ProfileView {
     }
 
     override fun onSuccessGetData(name: String?, profile: String?, email: String?) {
+        Picasso.with(context).load(ApiClient.IMAGE_URL+ profile)
+            .networkPolicy(NetworkPolicy.NO_CACHE)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .error(R.drawable.im_slider1)
+            .into(ivProfile)
 
+        tvName.text = name
+        tvEmail.text = email
     }
 
     override fun onLogout() {
@@ -62,7 +81,6 @@ class ProfileFragment : Fragment(), ProfileView {
 
     override fun onAttachView() {
         presenter?.onAttach(this)
-        presenter?.getDataUser()
     }
 
     override fun onDetachView() {

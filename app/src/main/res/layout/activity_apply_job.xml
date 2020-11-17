@@ -64,11 +64,40 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tulis sesuatu"
+                android:text="Email"
                 android:textColor="@color/black_40"
                 android:textSize="@dimen/_12sdp"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_height="@dimen/_40sdp"
+                android:maxLength="50"
+                style="@style/TextInputCreateJob"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Telepon"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black_40"
+                android:textSize="@dimen/_12sdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTelp"
+                android:layout_height="@dimen/_40sdp"
+                android:maxLength="50"
+                style="@style/TextInputCreateJob"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tulis sesuatu"
+                android:textColor="@color/black_40"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDesc"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
@@ -85,6 +114,7 @@
                 android:textSize="@dimen/_12sdp"/>
 
             <LinearLayout
+                android:id="@+id/attachment1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:padding="@dimen/_5sdp"
@@ -101,14 +131,41 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Curriculum Vitae"
+                    android:text="@string/attachment"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/attachment2"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:padding="@dimen/_5sdp"
+                android:background="@drawable/bg_white_border_grey"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_privacy_policy"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attachment"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/attachment3"
+                android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="@dimen/_40sdp"
                 android:padding="@dimen/_5sdp"
                 android:background="@drawable/bg_white_border_grey"
@@ -124,18 +181,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Curriculum Vitae"
+                    android:text="@string/attachment"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/attachment4"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:padding="@dimen/_5sdp"
                 android:background="@drawable/bg_white_border_grey"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/_5sdp">
 
@@ -147,18 +206,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Curriculum Vitae"
+                    android:text="@string/attachment"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/attachment5"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:padding="@dimen/_5sdp"
                 android:background="@drawable/bg_white_border_grey"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/_5sdp">
 
@@ -170,40 +231,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Curriculum Vitae"
+                    android:text="@string/attachment"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/bg_white_border_grey"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="@dimen/_5sdp">
-
-                <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/ic_privacy_policy"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Curriculum Vitae"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:textSize="@dimen/_12sdp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/addAttachment"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="right"
+                android:layout_gravity="right"
                 android:orientation="horizontal">
 
                 <ImageView

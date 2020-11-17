@@ -5,6 +5,7 @@ import com.mfa.carikerjapariwisata.api.ApiClient
 import com.mfa.carikerjapariwisata.api.ApiInterface
 import com.mfa.carikerjapariwisata.views.base.Presenter
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -30,10 +31,15 @@ class SignUpPresenter(private var con: Context) : Presenter<SignUpView> {
                 call: Call<ResponseBody?>,
                 response: Response<ResponseBody?>
             ) {
+                val jsonRESULTS = JSONObject(response.body()?.string())
                 if(response.isSuccessful){
-                    mView?.onSuccess()
+                    if(jsonRESULTS.getString("response_code") == "200"){
+                        mView?.onSuccess()
+                    }else{
+                        mView?.onFailed(jsonRESULTS.getString("message"))
+                    }
                 }else{
-                    mView?.onFailed("Registrasi gagal, harap coba kembali!")
+                    mView?.onFailed(jsonRESULTS.getString("message"))
                 }
             }
 

@@ -7,7 +7,23 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
+
 interface ApiInterface {
+    @Multipart
+    @POST("Auth/login")
+    fun loginRequest(
+        @Part("email") email: String?,
+        @Part("password") password: String?
+    ): Call<ResponseBody?>?
+
+    @Multipart
+    @POST("Auth/register")
+    fun registerRequest(
+        @Part("email") email: String?,
+        @Part("password") password: String?,
+        @Part("fullname") fullname: String
+    ): Call<ResponseBody>
+
     @GET("Place/get")
     fun getPlaceList(): Call<GetPlaces?>?
 
@@ -32,18 +48,6 @@ interface ApiInterface {
         @Part("user_id") user_id: String?
     ): Call<ResponseBody?>?
 
-    @Multipart
-    @POST("Auth/login")
-    fun loginRequest(
-        @Part("email") email: String?,
-        @Part("password") password: String?
-    ): Call<ResponseBody?>?
-
-    @Multipart
-    @POST("Auth/register")
-    fun registerRequest(
-        @Part("email") email: String?,
-        @Part("password") password: String?,
-        @Part("fullname") fullname: String
-    ): Call<ResponseBody>
+    @GET("Job/get_posted_job/{user_id}")
+    fun getPostedJob(@Path("user_id") user_id: String?): Call<GetJobs?>?
 }

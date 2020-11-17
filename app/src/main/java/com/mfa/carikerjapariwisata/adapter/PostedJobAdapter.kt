@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.list_jobs.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class JobAdapter internal constructor(private val jobs: List<Jobs>) :
-    RecyclerView.Adapter<JobAdapter.ViewHolder>() {
+class PostedJobAdapter internal constructor(private val jobs: List<Jobs>) :
+    RecyclerView.Adapter<PostedJobAdapter.ViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
@@ -23,7 +23,7 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>) :
         return ViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.list_jobs, parent, false)
+                .inflate(R.layout.list_posted_job, parent, false)
         )
     }
 
@@ -42,16 +42,18 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>) :
                 val day: Calendar = Calendar.getInstance()
                 day.setTime(SimpleDateFormat("yyyy-MM-dd").parse(jobs.job_date_end))
                 val day_count = ((day.timeInMillis - calCurr.timeInMillis)/ (1000 * 60 * 60 * 24))
-                if(day_count >= 0){
-                    tvTitle.text = jobs.job_title
-                    tvPlace.text = jobs.job_place
 
+                tvTitle.text = jobs.job_title
+                tvPlace.text = jobs.job_place
+
+                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(jobs) }
+
+                if(day_count >= 0){
                     tvTimeLeft.text = "Sisa "+(((day.timeInMillis - calCurr.timeInMillis)/ (1000 * 60 * 60 * 24)).toString())+ " hari"
                     tvTimeLeft.setTextColor(resources.getColor(R.color.colorPrimary))
-
-                    itemView.setOnClickListener { onItemClickCallback?.onItemClicked(jobs) }
                 }else{
-                    layout.visibility = View.GONE
+                    tvTimeLeft.text = "Kadaluarsa"
+                    tvTimeLeft.setTextColor(resources.getColor(R.color.red))
                 }
             }
         }
