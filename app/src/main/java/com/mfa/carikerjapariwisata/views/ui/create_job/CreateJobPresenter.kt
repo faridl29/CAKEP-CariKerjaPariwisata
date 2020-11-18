@@ -47,7 +47,7 @@ class CreateJobPresenter(private var con: Context) : Presenter<CreateJobView> {
             jobs.job_city,
             jobs.job_desc,
             jobs.photo,
-            jobs.user_id
+            sharedPrefManager.spId
         )?.enqueue(object : retrofit2.Callback<ResponseBody?> {
 
             override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {

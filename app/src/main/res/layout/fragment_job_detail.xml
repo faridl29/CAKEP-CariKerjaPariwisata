@@ -98,6 +98,7 @@
                                     app:cardCornerRadius="@dimen/_10sdp">
 
                                     <ImageView
+                                        android:id="@+id/ivJobLogo"
                                         android:layout_width="@dimen/_80sdp"
                                         android:layout_height="@dimen/_80sdp"
                                         android:scaleType="fitXY"

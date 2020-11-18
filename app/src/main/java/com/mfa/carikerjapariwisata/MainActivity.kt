@@ -1,10 +1,8 @@
 package com.mfa.carikerjapariwisata
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -42,10 +40,12 @@ class MainActivity : AppCompatActivity() {
         val navigation =
             findViewById<View>(R.id.nav_view) as BottomNavigationView
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        fm.beginTransaction().add(R.id.nav_host_fragment, profileFragment, "3").hide(profileFragment).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment, jobFragment, "2").hide(jobFragment).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment, homeFragment, "1").commit()
+//
+//        fm.beginTransaction().add(R.id.nav_host_fragment, profileFragment, "3").hide(profileFragment).commit()
+//        fm.beginTransaction().add(R.id.nav_host_fragment, jobFragment, "2").hide(jobFragment).commit()
+        if (fm.findFragmentByTag("1") == null){
+            fm.beginTransaction().add(R.id.nav_host_fragment, homeFragment, "1").commit()
+        }
 //        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 //
 //        val navController = findNavController(R.id.nav_host_fragment)
@@ -59,17 +59,30 @@ class MainActivity : AppCompatActivity() {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when (item.getItemId()) {
                     R.id.navigation_home -> {
-                        fm.beginTransaction().hide(active).show(homeFragment).commit()
+                        if (fm.findFragmentByTag("1") == null){
+                            fm.beginTransaction().add(R.id.nav_host_fragment, homeFragment, "1").commit()
+                        }else{
+                            fm.beginTransaction().hide(active).show(homeFragment).addToBackStack(null).commit()
+                        }
+
                         active = homeFragment
                         return true
                     }
                     R.id.navigation_job -> {
-                        fm.beginTransaction().hide(active).show(jobFragment).commit()
+                        if (fm.findFragmentByTag("2") == null){
+                            fm.beginTransaction().add(R.id.nav_host_fragment, jobFragment, "2").commit()
+                        }else{
+                            fm.beginTransaction().hide(active).show(jobFragment).addToBackStack(null).commit()
+                        }
                         active = jobFragment
                         return true
                     }
                     R.id.navigation_profile -> {
-                        fm.beginTransaction().hide(active).show(profileFragment).commit()
+                        if (fm.findFragmentByTag("3") == null){
+                            fm.beginTransaction().add(R.id.nav_host_fragment, profileFragment, "3").commit()
+                        }else{
+                            fm.beginTransaction().hide(active).show(profileFragment).addToBackStack(null).commit()
+                        }
                         active = profileFragment
                         return true
                     }

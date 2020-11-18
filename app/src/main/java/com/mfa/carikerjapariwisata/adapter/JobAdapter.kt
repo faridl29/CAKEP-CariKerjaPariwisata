@@ -5,8 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mfa.carikerjapariwisata.R
+import com.mfa.carikerjapariwisata.api.ApiClient
 import com.mfa.carikerjapariwisata.model.Jobs
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_jobs.view.*
+import kotlinx.android.synthetic.main.list_jobs.view.tvTitle
+import kotlinx.android.synthetic.main.list_main_places.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,6 +51,11 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>) :
                 if(day_count >= 0){
                     tvTitle.text = jobs.job_title
                     tvPlace.text = jobs.job_place
+                    Picasso.with(context).load(ApiClient.IMAGE_URL+ (jobs.photo))
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .error(R.drawable.im_slider1)
+                        .into(ivJobLogo)
 
                     tvTimeLeft.text = "Sisa "+(((day.timeInMillis - calCurr.timeInMillis)/ (1000 * 60 * 60 * 24)).toString())+ " hari"
                     tvTimeLeft.setTextColor(resources.getColor(R.color.colorPrimary))

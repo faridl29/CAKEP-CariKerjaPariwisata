@@ -5,14 +5,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mfa.carikerjapariwisata.R
-import com.mfa.carikerjapariwisata.adapter.MainPlaceAdapter
-import com.mfa.carikerjapariwisata.adapter.PlaceAdapter
 import com.mfa.carikerjapariwisata.adapter.PostedJobAdapter
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
-import com.mfa.carikerjapariwisata.utils.RecyclerViewAnimation
 import kotlinx.android.synthetic.main.activity_posted_job.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class PostedJobActivity : AppCompatActivity(), PostedJobView {
     private lateinit var presenter: PostedJobPresenter
@@ -30,7 +26,7 @@ class PostedJobActivity : AppCompatActivity(), PostedJobView {
 
     override fun onSuccess(result: List<Jobs>) {
         val postedJobAdapter = PostedJobAdapter(result)
-        val layoutManager = RecyclerViewAnimation(this, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         rvPostedJob.apply {
             this.adapter = postedJobAdapter

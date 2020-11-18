@@ -10,11 +10,16 @@ import androidx.lifecycle.ViewModelProviders
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mfa.carikerjapariwisata.R
+import com.mfa.carikerjapariwisata.api.ApiClient
 import com.mfa.carikerjapariwisata.databinding.FragmentJobDetailBinding
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.model.SharedPrefManager
 import com.mfa.carikerjapariwisata.views.ui.apply_job.ApplyJobActivity
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_job_detail.*
+import kotlinx.android.synthetic.main.list_main_places.view.*
 
 class JobDetailFragment : SuperBottomSheetFragment() {
 
@@ -62,6 +67,13 @@ class JobDetailFragment : SuperBottomSheetFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val job = arguments?.getParcelable<Jobs>(EXTRA_JOB)
+
+        Picasso.with(context).load(ApiClient.IMAGE_URL+ (job?.photo))
+            .networkPolicy(NetworkPolicy.NO_CACHE)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .error(R.drawable.im_slider1)
+            .into(ivJobLogo)
+
         if(job?.user_id == sharedPrefManager.spId){
             btnApplyJob.setEnabled(false)
             btnApplyJob.setBackgroundColor(ContextCompat.getColor(view.context, R.color.grey_20))

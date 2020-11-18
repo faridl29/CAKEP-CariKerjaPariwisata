@@ -5,8 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mfa.carikerjapariwisata.R
+import com.mfa.carikerjapariwisata.api.ApiClient
 import com.mfa.carikerjapariwisata.model.Jobs
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_jobs.view.*
+import kotlinx.android.synthetic.main.list_jobs.view.ivJobLogo
+import kotlinx.android.synthetic.main.list_jobs.view.tvPlace
+import kotlinx.android.synthetic.main.list_jobs.view.tvTimeLeft
+import kotlinx.android.synthetic.main.list_jobs.view.tvTitle
+import kotlinx.android.synthetic.main.list_main_places.view.*
+import kotlinx.android.synthetic.main.list_posted_job.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,6 +55,11 @@ class PostedJobAdapter internal constructor(private val jobs: List<Jobs>) :
 
                 tvTitle.text = jobs.job_title
                 tvPlace.text = jobs.job_place
+                Picasso.with(context).load(ApiClient.IMAGE_URL+ (jobs.photo))
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .error(R.drawable.im_slider1)
+                    .into(ivJobLogo)
 
                 itemView.setOnClickListener { onItemClickCallback?.onItemClicked(jobs) }
 

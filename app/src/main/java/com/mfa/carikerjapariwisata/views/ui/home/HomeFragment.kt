@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
-import com.ethanhua.skeleton.Skeleton
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.MainPlaceAdapter
 import com.mfa.carikerjapariwisata.adapter.PlaceAdapter
@@ -28,6 +28,10 @@ class HomeFragment : Fragment(), HomeView {
     private val helper: SnapHelper = PagerSnapHelper()
     private val helper2: SnapHelper = PagerSnapHelper()
 
+    companion object{
+        var TAG = "1"
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -40,6 +44,11 @@ class HomeFragment : Fragment(), HomeView {
         onAttachView()
 
         return root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
     }
 
     override fun onSuccess(result: List<Place>) {
@@ -107,4 +116,5 @@ class HomeFragment : Fragment(), HomeView {
         onDetachView()
         super.onDestroy()
     }
+
 }
