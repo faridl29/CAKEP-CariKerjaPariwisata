@@ -49,11 +49,11 @@ class GlobalFunction(private var con: Context) {
     }
 
     fun handleDrawableClickEditText(editText: EditText){
-        editText.setOnTouchListener(View.OnTouchListener { v, event ->
+        editText.setOnTouchListener(View.OnTouchListener { _ , event ->
             val DRAWABLE_RIGHT = 2
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= editText.getRight() - editText.getCompoundDrawables()
-                        .get(DRAWABLE_RIGHT).getBounds().width()
+                        .get(DRAWABLE_RIGHT).getBounds().width() - 50
                 ) {
                     if (editText.transformationMethod == null) {
                         editText.setCompoundDrawablesWithIntrinsicBounds(

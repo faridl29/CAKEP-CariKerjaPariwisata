@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.JobAdapter
 import com.mfa.carikerjapariwisata.model.Jobs
+import com.mfa.carikerjapariwisata.views.ui.all_job.AllJobActivity
 import com.mfa.carikerjapariwisata.views.ui.create_job.CreateJobActivity
 import com.mfa.carikerjapariwisata.views.ui.job_detail.JobDetailFragment
 import com.mfa.carikerjapariwisata.views.ui.place_detail.PlaceDetail
@@ -31,7 +32,7 @@ class JobFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_job, container, false)
 
         jobViewModel.data.observe({ lifecycle }, {
-            val jobAdapter = JobAdapter(it)
+            val jobAdapter = JobAdapter(it, "JobFragment")
 
             rvJobs.apply {
                 this.adapter = jobAdapter
@@ -64,5 +65,14 @@ class JobFragment : Fragment() {
 //        })
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        ivLoadAll.setOnClickListener {
+            val intent = Intent(activity, AllJobActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

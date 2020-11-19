@@ -1,88 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_10sdp">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="@dimen/_10sdp">
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_10sdp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardLogo"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/_10sdp">
+                android:background="@color/white"
+                android:padding="@dimen/_10sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/ivJobLogo"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/im_slider1" />
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/cardLogo"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="@dimen/_150sdp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/black_60"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10sdp"
+                        android:maxWidth="@dimen/_150sdp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/black_40"/>
+
+                    <TextView
+                        android:id="@+id/tvTimeLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10sdp"
+                        android:maxWidth="@dimen/_150sdp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/black_40"/>
+
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/ivJobLogo"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/im_slider1" />
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/ic_bookmark"
+                    android:layout_alignParentRight="true"/>
 
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cardLogo"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:orientation="vertical">
+        </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="@dimen/_150sdp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/black_60"/>
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvPlace"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10sdp"
-                    android:maxWidth="@dimen/_150sdp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/black_40"/>
-
-                <TextView
-                    android:id="@+id/tvTimeLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10sdp"
-                    android:maxWidth="@dimen/_150sdp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/black_40"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_bookmark"
-                android:layout_alignParentRight="true"/>
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
+
