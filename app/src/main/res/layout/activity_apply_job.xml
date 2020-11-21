@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -38,6 +39,7 @@
                 android:textColor="@android:color/white" />
 
             <ImageButton
+                android:id="@+id/ibSubmit"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -91,7 +93,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tulis sesuatu"
+                android:text="Tulis sesuatu (opsional)"
                 android:textColor="@color/black_40"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_12sdp"/>
@@ -129,10 +131,13 @@
                     android:src="@drawable/ic_privacy_policy"/>
 
                 <TextView
+                    android:id="@+id/tvAttachment1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/attachment"
                     android:layout_marginLeft="@dimen/_10sdp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textSize="@dimen/_12sdp"/>
 
             </LinearLayout>
@@ -154,9 +159,12 @@
                     android:src="@drawable/ic_privacy_policy"/>
 
                 <TextView
+                    android:id="@+id/tvAttachment2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/attachment"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 
@@ -179,9 +187,12 @@
                     android:src="@drawable/ic_privacy_policy"/>
 
                 <TextView
+                    android:id="@+id/tvAttachment3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/attachment"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 
@@ -204,9 +215,12 @@
                     android:src="@drawable/ic_privacy_policy"/>
 
                 <TextView
+                    android:id="@+id/tvAttachment4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/attachment"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 
@@ -229,9 +243,12 @@
                     android:src="@drawable/ic_privacy_policy"/>
 
                 <TextView
+                    android:id="@+id/tvAttachment5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/attachment"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"/>
 

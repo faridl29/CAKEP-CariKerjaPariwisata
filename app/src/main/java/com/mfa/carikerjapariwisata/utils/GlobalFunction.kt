@@ -37,9 +37,14 @@ class GlobalFunction(private var con: Context) {
         snack.show()
     }
 
-    fun createSnackBar(layout: LinearLayout, message: String, color: Int){
+    fun createSnackBar(layout: LinearLayout, message: String, color: Int, type: String?){
         val snack: Snackbar = Snackbar.make(layout, message, Snackbar.LENGTH_LONG).apply {
-            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).maxLines = 10}
+            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).maxLines = 10
+            if (type == "warning"){
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0);
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setCompoundDrawablePadding(getContext().resources.getDimensionPixelOffset(R.dimen._10sdp));
+            }
+        }
         val view: View = snack.view
         view.setBackgroundColor(ContextCompat.getColor(con, color))
         val params: FrameLayout.LayoutParams = view.getLayoutParams() as FrameLayout.LayoutParams
@@ -79,4 +84,5 @@ class GlobalFunction(private var con: Context) {
             false
         })
     }
+
 }

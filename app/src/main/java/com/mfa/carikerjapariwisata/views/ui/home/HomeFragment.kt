@@ -83,7 +83,7 @@ class HomeFragment : Fragment(), HomeView {
         rvMainPlaces.post(Runnable { // Shift the view to snap  near the center of the screen.
             // This does not have to be precise.
             val dx: Int =
-                (rvMainPlaces.getWidth() - rvMainPlaces.getChildAt(0).getWidth()) / 2
+                (rvMainPlaces.width - rvMainPlaces.getChildAt(0).width) / 2
             rvMainPlaces.scrollBy(-dx, 0)
             // Assign the LinearSnapHelper that will initially snap the near-center view.
 

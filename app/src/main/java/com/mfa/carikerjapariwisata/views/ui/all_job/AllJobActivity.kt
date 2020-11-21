@@ -115,7 +115,7 @@ class AllJobActivity : AppCompatActivity(), AllJobView {
     }
 
     override fun onFailed(error: String) {
-        globalFunction.createSnackBar(layout, error, R.color.red)
+        globalFunction.createSnackBar(layout, error, R.color.red,"error")
         presenter.onCleared()
     }
 

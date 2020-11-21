@@ -44,12 +44,6 @@ class JobDetailFragment : SuperBottomSheetFragment() {
 
         sharedPrefManager = SharedPrefManager(view.context)
 
-        binding.btnApplyJob.setOnClickListener {
-            val intent = Intent(activity, ApplyJobActivity::class.java)
-            startActivity(intent)
-        }
-
-
         binding.btClose.setOnClickListener{
             dismiss()
         }
@@ -77,6 +71,12 @@ class JobDetailFragment : SuperBottomSheetFragment() {
         if(job?.user_id == sharedPrefManager.spId){
             btnApplyJob.setEnabled(false)
             btnApplyJob.setBackgroundColor(ContextCompat.getColor(view.context, R.color.grey_20))
+        }
+
+        binding.btnApplyJob.setOnClickListener {
+            val intent = Intent(activity, ApplyJobActivity::class.java)
+            intent.putExtra("job_id", job?.id)
+            startActivity(intent)
         }
     }
 

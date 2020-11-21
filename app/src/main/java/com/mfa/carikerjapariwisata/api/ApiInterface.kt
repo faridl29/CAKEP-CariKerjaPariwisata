@@ -48,6 +48,17 @@ interface ApiInterface {
         @Part("user_id") user_id: String?
     ): Call<ResponseBody?>?
 
+    @Multipart
+    @POST("Job/apply_job")
+    open fun apply_job(
+        @Part("email") email: String?,
+        @Part("no_telp") no_telp: String?,
+        @Part("user_id") user_id: String?,
+        @Part("job_id") job_id: String?,
+        @Part("applicant_desc") applicant_desc: String?,
+        @Part attachments: List<MultipartBody.Part>
+    ): Call<ResponseBody?>?
+
     @GET("Job/get_posted_job/{user_id}")
     fun getPostedJob(@Path("user_id") user_id: String?): Call<GetJobs?>?
 }
