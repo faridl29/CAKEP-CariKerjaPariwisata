@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:id="@+id/layout"
     tools:context=".views.ui.posted_job.PostedJobActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -35,6 +36,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Pelamar"
+                android:layout_marginRight="?attr/actionBarSize"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white" />
 
@@ -43,7 +45,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvJobs"
+        android:id="@+id/rvApplicant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"/>

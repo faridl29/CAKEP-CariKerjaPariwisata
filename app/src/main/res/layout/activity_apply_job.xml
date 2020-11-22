@@ -74,6 +74,8 @@
                 android:id="@+id/etEmail"
                 android:layout_height="@dimen/_40sdp"
                 android:maxLength="50"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
                 style="@style/TextInputCreateJob"/>
 
             <TextView
@@ -88,6 +90,8 @@
                 android:id="@+id/etTelp"
                 android:layout_height="@dimen/_40sdp"
                 android:maxLength="50"
+                android:maxLines="1"
+                android:inputType="phone"
                 style="@style/TextInputCreateJob"/>
 
             <TextView

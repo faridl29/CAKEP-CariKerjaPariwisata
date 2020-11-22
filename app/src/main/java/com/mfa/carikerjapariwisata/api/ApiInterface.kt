@@ -1,5 +1,6 @@
 package com.mfa.carikerjapariwisata.api
 
+import com.mfa.carikerjapariwisata.model.GetApplicants
 import com.mfa.carikerjapariwisata.model.GetJobs
 import com.mfa.carikerjapariwisata.model.GetPlaces
 import okhttp3.MultipartBody
@@ -61,4 +62,11 @@ interface ApiInterface {
 
     @GET("Job/get_posted_job/{user_id}")
     fun getPostedJob(@Path("user_id") user_id: String?): Call<GetJobs?>?
+
+    @GET("Job/get_applicant/{job_id}")
+    fun getApplicant(@Path("job_id") job_id: String?): Call<GetApplicants?>?
+
+    @Streaming
+    @GET
+    fun downloadFileWithDynamicUrlAsync(@Url fileUrl: String?): Call<ResponseBody>?
 }

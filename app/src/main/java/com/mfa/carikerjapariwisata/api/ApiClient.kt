@@ -5,8 +5,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object ApiClient {
-    val BASE_URL = "http://192.168.43.85/public/api/"
-    val IMAGE_URL = "http://192.168.43.85/images/"
+    val URL = "http://192.168.43.85"
+    val BASE_URL = URL+"/public/api/"
+    val IMAGE_URL = URL+"/images/"
+    val ATTACHMENT_URL = IMAGE_URL+"applicant_attachment/"
 
     fun getClient(): Retrofit {
         val retrofit = Retrofit.Builder()

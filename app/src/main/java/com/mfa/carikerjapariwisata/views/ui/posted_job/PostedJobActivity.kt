@@ -1,13 +1,17 @@
 package com.mfa.carikerjapariwisata.views.ui.posted_job
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.PostedJobAdapter
+import com.mfa.carikerjapariwisata.model.Applicants
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
+import com.mfa.carikerjapariwisata.views.ui.applicant.ApplicantActivity
+import com.mfa.carikerjapariwisata.views.ui.place_detail.PlaceDetail
 import kotlinx.android.synthetic.main.activity_posted_job.*
 
 class PostedJobActivity : AppCompatActivity(), PostedJobView {
@@ -33,6 +37,14 @@ class PostedJobActivity : AppCompatActivity(), PostedJobView {
             this.layoutManager = layoutManager
             this.hasFixedSize()
         }
+
+        postedJobAdapter.setOnItemClickCallback(object : PostedJobAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: Jobs) {
+                val intent = Intent(this@PostedJobActivity, ApplicantActivity::class.java)
+                intent.putExtra("job_id", data.id)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun onFailed(error: String) {
