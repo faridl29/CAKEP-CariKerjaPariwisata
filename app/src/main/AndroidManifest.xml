@@ -27,7 +27,7 @@
         </provider>
 
         <activity android:name=".views.ui.applicant.ApplicantActivity"></activity>
-        <activity android:name=".views.ui.all_job.AllJobActivity" />
+        <activity android:name=".views.ui.all_job.AllJobActivity" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".views.ui.ApplicantActivity" />
         <activity android:name=".views.ui.posted_job.PostedJobActivity" />
         <activity android:name=".views.ui.apply_job.ApplyJobActivity" />

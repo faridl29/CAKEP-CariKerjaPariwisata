@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -72,6 +70,15 @@ class HomeFragment : Fragment(), HomeView {
         indicator.attachToRecyclerView(rvMainPlaces)
 
         mainPlaceAdapter.setOnItemClickCallback(object : MainPlaceAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Place) {
+                val intent = Intent(activity, PlaceDetail::class.java)
+                intent.putExtra(PlaceDetail.EXTRA_PLACE, data)
+                startActivity(intent)
+            }
+
+        })
+
+        placeAdapter.setOnItemClickCallback(object : PlaceAdapter.OnItemClickCallback{
             override fun onItemClicked(data: Place) {
                 val intent = Intent(activity, PlaceDetail::class.java)
                 intent.putExtra(PlaceDetail.EXTRA_PLACE, data)

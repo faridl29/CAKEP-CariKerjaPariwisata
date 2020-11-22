@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -89,12 +90,12 @@ public class DownloadTask {
                                     context,
                                     context.getApplicationContext()
                                             .getPackageName() + ".provider", pdfFile);
-                            pdfIntent.setDataAndType(apkURI, "*/*");
+                            pdfIntent.setDataAndType(apkURI, MimeTypeMap.getSingleton().getMimeTypeFromExtension(downloadFileName));
                             pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             try{
                                 context.startActivity(pdfIntent);
                             }catch(ActivityNotFoundException e){
-                                Toast.makeText(context, "Tidak ada aplikasi yang mendukung untuk membuka file", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Tidak ada aplikasi yang mendukung untuk membuka file ini", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -108,7 +109,8 @@ public class DownloadTask {
 
                         }
                     }, 3000);
-
+                    progressDialog.cancel();
+                    Toast.makeText(context, "Download Failed!", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "Download Failed");
 
                 }

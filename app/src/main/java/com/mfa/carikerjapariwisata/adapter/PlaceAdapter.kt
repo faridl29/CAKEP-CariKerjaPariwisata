@@ -1,12 +1,9 @@
 package com.mfa.carikerjapariwisata.adapter
 
-import android.R.attr
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ActionMenuView
-import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.mfa.carikerjapariwisata.R
@@ -15,13 +12,18 @@ import com.mfa.carikerjapariwisata.model.Place
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.list_main_places.view.*
 import kotlinx.android.synthetic.main.list_places.view.*
 import kotlinx.android.synthetic.main.list_places.view.tvTitle
 
 
 class PlaceAdapter internal constructor(private val places: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
+
+    private var onItemClickCallback: PlaceAdapter.OnItemClickCallback? = null
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -40,7 +42,7 @@ class PlaceAdapter internal constructor(private val places: List<Place>) :
         holder.bind(position == places.lastIndex ,places[position])
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind(lastItem: Boolean, place: Place) {
             with(itemView) {
@@ -51,6 +53,8 @@ class PlaceAdapter internal constructor(private val places: List<Place>) :
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)
                     .into(ivPhoto)
+
+                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(place) }
                 if(lastItem){
 //                    val params = ActionMenuView.LayoutParams(
 //                        ActionMenuView.LayoutParams.WRAP_CONTENT,
@@ -70,4 +74,7 @@ class PlaceAdapter internal constructor(private val places: List<Place>) :
         }
     }
 
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Place)
+    }
 }

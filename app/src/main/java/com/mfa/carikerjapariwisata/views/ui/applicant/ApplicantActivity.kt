@@ -1,27 +1,31 @@
 package com.mfa.carikerjapariwisata.views.ui.applicant
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.ApplicantAdapter
 import com.mfa.carikerjapariwisata.api.ApiClient
-import com.mfa.carikerjapariwisata.api.ApiInterface
 import com.mfa.carikerjapariwisata.model.Applicants
 import com.mfa.carikerjapariwisata.model.Attachments
 import com.mfa.carikerjapariwisata.utils.DownloadTask
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import kotlinx.android.synthetic.main.activity_applicant.*
-import okhttp3.ResponseBody
-import java.io.FileOutputStream
-import java.io.InputStream
 
 
 class ApplicantActivity : AppCompatActivity(), ApplicantView {
     private lateinit var presenter: ApplicantPresenter
     private lateinit var globalFunction: GlobalFunction
+    private val REQUEST_EXTERNAL_STORAGE = 1
+    private val PERMISSIONS_STORAGE = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +47,10 @@ class ApplicantActivity : AppCompatActivity(), ApplicantView {
             this.hasFixedSize()
         }
 
+        verifyStoragePermissions(this)
+
         adapter.setOnItemClickCallbackAttachment(object : ApplicantAdapter.OnItemClickCallbackAttachment {
             override fun onItemClickedAttachment(data: Attachments) {
-                Toast.makeText(this@ApplicantActivity, "tes", Toast.LENGTH_SHORT).show()
                 downloadFile(ApiClient.ATTACHMENT_URL+data.attachment)
             }
 
@@ -54,89 +59,24 @@ class ApplicantActivity : AppCompatActivity(), ApplicantView {
 
     private fun downloadFile(fileUrl: String){
         DownloadTask(this, fileUrl)
-//        val mInterface = ApiClient.getClient().create(ApiInterface::class.java)
-//
-//        val call = mInterface.downloadFileWithDynamicUrlAsync(fileUrl)
-//
-//        call?.enqueue(object : retrofit2.Callback<ResponseBody>{
-//            override fun onResponse(call: retrofit2.Call<ResponseBody?>?, response: retrofit2.Response<ResponseBody>?) {
-//                if (response?.isSuccessful!!) {
-//                    Log.d("Download File", "server contacted and has file")
-//                    val writtenToDisk: String = saveFile(response.body(), "Download/")
-//                    Log.d("Download File", "file download was a success? $writtenToDisk")
-//                } else {
-//                    Log.d("Download File", "server contact failed")
-//                }
-//            }
-//
-//            override fun onFailure(call: retrofit2.Call<ResponseBody>?, t: Throwable?) {
-//                Log.e("Download File", "error")
-//            }
-//        })
     }
 
-//    private fun writeResponseBodyToDisk(body: ResponseBody): Boolean {
-//        return try {
-//            val futureStudioIconFile = File(getExternalFilesDir("Download/Future Studio Icon.png").toString())
-//            var inputStream: InputStream? = null
-//            var outputStream: OutputStream? = null
-//            try {
-//                val fileReader = ByteArray(4096)
-//                val fileSize = body.contentLength()
-//                var fileSizeDownloaded: Long = 0
-//                inputStream = body.byteStream()
-//                outputStream = FileOutputStream(futureStudioIconFile)
-//                while (true) {
-//                    val read: Int = inputStream.read(fileReader)
-//                    if (read == -1) {
-//                        break
-//                    }
-//                    outputStream?.write(fileReader, 0, read)
-//                    fileSizeDownloaded += read.toLong()
-//                    Log.d(
-//                        "Save File",
-//                        "file download: $fileSizeDownloaded of $fileSize"
-//                    )
-//                }
-//                outputStream?.flush()
-//                true
-//            } catch (e: IOException) {
-//                false
-//            } finally {
-////                inputStream?.close()
-////                outputStream?.close()
-//            }
-//        } catch (e: IOException) {
-//            false
-//        }
-//    }
-
-    private fun saveFile(body: ResponseBody?, pathWhereYouWantToSaveFile: String):String{
-        if (body==null)
-            return ""
-        var input: InputStream? = null
-        try {
-            input = body.byteStream()
-            //val file = File(getCacheDir(), "cacheFileAppeal.srl")
-            val fos = FileOutputStream(pathWhereYouWantToSaveFile)
-            fos.use { output ->
-                val buffer = ByteArray(4 * 1024) // or other buffer size
-                var read: Int
-                while (input.read(buffer).also { read = it } != -1) {
-                    output.write(buffer, 0, read)
-                }
-                output.flush()
-            }
-            return pathWhereYouWantToSaveFile
-        }catch (e:Exception){
-            Log.e("saveFile",e.toString())
+    fun verifyStoragePermissions(activity: Activity?) {
+        // Check if we have write permission
+        val permission =
+            ActivityCompat.checkSelfPermission(
+                activity!!,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                activity,
+                PERMISSIONS_STORAGE,
+                REQUEST_EXTERNAL_STORAGE
+            )
         }
-        finally {
-            input?.close()
-        }
-        return ""
     }
-
     override fun onFailed(error: String) {
         globalFunction.createSnackBar(layout, error, R.color.red, "error")
     }
