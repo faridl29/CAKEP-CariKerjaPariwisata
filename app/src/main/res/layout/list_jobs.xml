@@ -80,9 +80,10 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/ivBookmark"
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/ic_bookmark"
+                    android:src="@drawable/ic_bookmark_not_active"
                     android:layout_alignParentRight="true"/>
 
             </RelativeLayout>

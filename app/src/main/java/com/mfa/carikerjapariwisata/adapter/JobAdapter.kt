@@ -1,5 +1,6 @@
 package com.mfa.carikerjapariwisata.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,9 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_jobs.view.*
+import kotlinx.android.synthetic.main.list_jobs.view.layout
+import kotlinx.android.synthetic.main.list_jobs.view.tvTitle
+import kotlinx.android.synthetic.main.list_places.view.*
 import kotlinx.coroutines.Job
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,10 +25,15 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>, private val 
     RecyclerView.Adapter<JobAdapter.ViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
+    private var onItemClickCallbackBookmark: OnItemClickCallbackBookmark? = null
     private var filteredJobList = jobs
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
+    }
+
+    fun setOnItemClickCallbackBookmark(onItemClickCallbackBookmark: OnItemClickCallbackBookmark) {
+        this.onItemClickCallbackBookmark = onItemClickCallbackBookmark
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -80,11 +89,11 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>, private val 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(filteredJobList[position])
+        holder.bind(position,filteredJobList[position])
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(jobs: Jobs) {
+        fun bind(position: Int, jobs: Jobs) {
             with(itemView) {
                 val calCurr: Calendar = Calendar.getInstance()
                 val day: Calendar = Calendar.getInstance()
@@ -102,6 +111,13 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>, private val 
                     tvTimeLeft.text = "Sisa "+(((day.timeInMillis - calCurr.timeInMillis)/ (1000 * 60 * 60 * 24)).toString())+ " hari"
                     tvTimeLeft.setTextColor(resources.getColor(R.color.colorPrimary))
 
+                    ivBookmark.setOnClickListener {
+                        onItemClickCallbackBookmark?.onItemClicked(jobs, position)
+                    }
+
+                    if(jobs.bookmark == true){
+                        ivBookmark.setImageResource(R.drawable.ic_bookmark_active)
+                    }
                     itemView.setOnClickListener { onItemClickCallback?.onItemClicked(jobs) }
                 }else{
                     layout.visibility = View.GONE
@@ -112,5 +128,14 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>, private val 
 
     interface OnItemClickCallback {
         fun onItemClicked(data: Jobs)
+    }
+
+    interface OnItemClickCallbackBookmark {
+        fun onItemClicked(data: Jobs, position: Int)
+    }
+
+    fun bookmark_clicked(position: Int, bookmark: Boolean?){
+        jobs[position].bookmark = bookmark
+        notifyItemChanged(position)
     }
 }

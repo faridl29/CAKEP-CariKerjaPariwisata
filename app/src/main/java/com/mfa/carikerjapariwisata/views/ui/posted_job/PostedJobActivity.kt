@@ -7,11 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.PostedJobAdapter
-import com.mfa.carikerjapariwisata.model.Applicants
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.views.ui.applicant.ApplicantActivity
-import com.mfa.carikerjapariwisata.views.ui.place_detail.PlaceDetail
 import kotlinx.android.synthetic.main.activity_posted_job.*
 
 class PostedJobActivity : AppCompatActivity(), PostedJobView {

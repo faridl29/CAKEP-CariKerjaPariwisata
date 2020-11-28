@@ -92,13 +92,14 @@
                             android:gravity="right">
 
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/fabLike"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_2sdp"
                                 android:layout_marginBottom="@dimen/_10sdp"
                                 app:backgroundTint="@color/white"
                                 android:layout_marginRight="@dimen/_8sdp"
-                                android:src="@drawable/ic_love2"
+                                android:src="@drawable/ic_love_not_active"
                                 android:clickable="true"
                                 />
 
@@ -114,7 +115,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:maxWidth="@dimen/_210sdp"
-                                android:text="@{viewModel.title}"
                                 android:textSize="@dimen/_16sdp"
                                 android:textColor="@color/black_60"/>
 
@@ -134,7 +134,6 @@
                                     android:id="@+id/tvCity"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@{viewModel.city}"
                                     android:textSize="@dimen/_12sdp"
                                     android:textColor="@color/black_60"/>
 
@@ -150,14 +149,13 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_love"
+                                    android:src="@drawable/ic_love_active"
                                     android:layout_marginRight="@dimen/_8sdp"/>
 
                                 <TextView
                                     android:id="@+id/tvLikes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="33"
                                     android:textSize="@dimen/_12sdp"
                                     android:textColor="@color/black_60"/>
 
@@ -249,7 +247,6 @@
                         android:id="@+id/tvDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.desc}"
                         android:textColor="@color/black_40"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:lineSpacingExtra="@dimen/_1sdp"
@@ -268,7 +265,6 @@
                         android:id="@+id/tvPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.price}"
                         android:textSize="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:lineSpacingExtra="@dimen/_1sdp"
@@ -288,7 +284,6 @@
                         android:id="@+id/tvTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.time}"
                         android:textSize="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:lineSpacingExtra="@dimen/_1sdp"

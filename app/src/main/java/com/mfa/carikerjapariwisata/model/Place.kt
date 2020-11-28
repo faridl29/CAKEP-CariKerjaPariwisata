@@ -13,6 +13,8 @@ data class Place(
     var place_time: String? = null,
     var md_category_id: String? = null,
     var photo_main: String? = null,
+    var like_count: String? = null,
+    var like: Boolean? = false,
     var galleries: List<Galleries>? = null
 ) : Parcelable
 

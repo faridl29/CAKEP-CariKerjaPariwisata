@@ -22,4 +22,5 @@
     <string name="job_desk">Job Desk</string>
     <string name="gaji">Gaji</string>
     <string name="attachment">Lampiran</string>
+    <string name="cannot_connect">Tidak dapat terhubung ke server</string>
 </resources>

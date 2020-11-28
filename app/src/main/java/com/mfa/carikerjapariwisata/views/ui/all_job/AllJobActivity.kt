@@ -1,26 +1,39 @@
 package com.mfa.carikerjapariwisata.views.ui.all_job
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.JobAdapter
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
+import com.mfa.carikerjapariwisata.views.ui.job.JobFragment
 import com.mfa.carikerjapariwisata.views.ui.job_detail.JobDetailFragment
 import kotlinx.android.synthetic.main.activity_all_job.*
+import kotlinx.android.synthetic.main.activity_all_job.iv_clear_text
+import kotlinx.android.synthetic.main.activity_all_job.lytListEmpty
+import kotlinx.android.synthetic.main.activity_all_job.lytSearhEmpty
+import kotlinx.android.synthetic.main.activity_all_job.searchView
+import kotlinx.android.synthetic.main.activity_all_place.*
 import kotlinx.android.synthetic.main.activity_posted_job.layout
 
 
 class AllJobActivity : AppCompatActivity(), AllJobView {
     private lateinit var presenter: AllJobPresenter
     private lateinit var globalFunction: GlobalFunction
-    private lateinit var jobAdapter: JobAdapter
+    private var jobAdapter: JobAdapter? = null
+    private var index: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +43,6 @@ class AllJobActivity : AppCompatActivity(), AllJobView {
 
         presenter = AllJobPresenter(this)
         onAttachView()
-
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener() {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                jobAdapter.getFilter()?.filter(newText)
-//                return true
-//            }
-//        })
 
         searchView.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -62,8 +64,8 @@ class AllJobActivity : AppCompatActivity(), AllJobView {
                 before: Int,
                 count: Int
             ) {
-                jobAdapter.getFilter()?.filter(s)
-                if (s.toString().trim { it <= ' ' }.length == 0) {
+                jobAdapter?.getFilter()?.filter(s)
+                if (s.toString().trim { it <= ' ' }.isEmpty()) {
                     iv_clear_text.setVisibility(View.GONE)
                 } else {
                     iv_clear_text.setVisibility(View.VISIBLE)
@@ -101,7 +103,7 @@ class AllJobActivity : AppCompatActivity(), AllJobView {
             this.hasFixedSize()
         }
 
-        jobAdapter.setOnItemClickCallback(object : JobAdapter.OnItemClickCallback {
+        jobAdapter?.setOnItemClickCallback(object : JobAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Jobs) {
                 val sheet = JobDetailFragment()
                 var args = Bundle()
@@ -111,16 +113,45 @@ class AllJobActivity : AppCompatActivity(), AllJobView {
             }
         })
 
-        presenter.onCleared()
+        jobAdapter?.setOnItemClickCallbackBookmark(object : JobAdapter.OnItemClickCallbackBookmark{
+            override fun onItemClicked(
+                data: Jobs,
+                position: Int
+            ) {
+                presenter.bookmark_job(data.id)
+                index = position
+            }
+
+        })
+
+        jobAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                if(jobAdapter?.itemCount!! > 0){
+                    lytSearhEmpty.visibility = View.GONE
+                }else{
+                    lytSearhEmpty.visibility = View.VISIBLE
+                }
+            }
+        })
+
     }
 
     override fun onFailed(error: String) {
         globalFunction.createSnackBar(layout, error, R.color.red,"error")
-        presenter.onCleared()
     }
 
     override fun onEmpty() {
-        TODO("Not yet implemented")
+        lytListEmpty.visibility = View.VISIBLE
+    }
+
+    override fun onSuccessBookmarkJob(status: Boolean) {
+        jobAdapter?.bookmark_clicked(index, status)
+    }
+
+    override fun onFailedBookmarkJob(error: String) {
+        jobAdapter?.notifyDataSetChanged()
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
     override fun onAttachView() {
@@ -135,5 +166,19 @@ class AllJobActivity : AppCompatActivity(), AllJobView {
     override fun onDestroy() {
         onDetachView()
         super.onDestroy()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return super.onKeyDown(keyCode, event)
+        var intent = Intent()
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        var intent = Intent()
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+        super.onBackPressed()
     }
 }

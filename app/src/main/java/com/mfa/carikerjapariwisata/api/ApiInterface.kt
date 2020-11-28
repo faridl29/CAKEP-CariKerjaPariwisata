@@ -26,14 +26,20 @@ interface ApiInterface {
     ): Call<ResponseBody>
 
     @GET("Place/get")
-    fun getPlaceList(): Call<GetPlaces?>?
+    fun getPlaceList(
+        @Query("user_id") user_id: String?,
+        @Query("category") category: String?
+    ): Call<GetPlaces?>?
+
+    @GET("Place/get_favorite_place")
+    fun getFavoritePlace(): Call<GetPlaces?>?
 
 //    @Headers(
 //        "Accept: application/json",
 //        "Content-type:application/json"
 //    )
     @GET("Job/get")
-    fun getJobList(): Call<GetJobs?>?
+    fun getJobList(@Query("user_id") user_id: String?): Call<GetJobs?>?
 
     @Multipart
     @POST("Job/create")
@@ -47,6 +53,13 @@ interface ApiInterface {
         @Part("job_desc") job_desc: String?,
         @Part("photo") photo: String?,
         @Part("user_id") user_id: String?
+    ): Call<ResponseBody?>?
+
+    @Multipart
+    @POST("Place/like_place")
+    open fun like_place(
+        @Part("user_id") user_id: String?,
+        @Part("place_id") place_id: String?
     ): Call<ResponseBody?>?
 
     @Multipart
@@ -69,4 +82,11 @@ interface ApiInterface {
     @Streaming
     @GET
     fun downloadFileWithDynamicUrlAsync(@Url fileUrl: String?): Call<ResponseBody>?
+
+    @Multipart
+    @POST("Job/bookmark_job")
+    open fun bookmark_job(
+        @Part("user_id") user_id: String?,
+        @Part("job_id") job_id: String?
+    ): Call<ResponseBody?>?
 }

@@ -109,7 +109,7 @@
                                 <ImageView
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
-                                    android:src="@drawable/ic_bookmark"
+                                    android:src="@drawable/ic_bookmark_not_active"
                                     android:layout_alignParentRight="true"/>
 
                                 <TextView

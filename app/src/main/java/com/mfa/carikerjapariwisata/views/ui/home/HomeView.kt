@@ -5,6 +5,9 @@ import com.mfa.carikerjapariwisata.views.base.View
 
 interface HomeView : View {
     fun onSuccess(result: List<Place>)
+    fun onSuccessGetFavoritestPlace(result: List<Place>)
     fun onFailed(error: String)
     fun onEmpty()
+    fun onSuccessLikePlace(status: Boolean)
+    fun onFailedLikePlace(error: String)
 }

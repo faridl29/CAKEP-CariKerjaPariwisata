@@ -51,11 +51,11 @@
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="@dimen/_150sdp"
-                android:layout_height="wrap_content"
+                android:layout_height="12dp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:background="@color/black_20"
-                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/black_60"
-                android:layout_marginBottom="@dimen/_2sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
             <TextView
                 android:id="@+id/tvDesc"

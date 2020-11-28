@@ -78,6 +78,7 @@
                         android:layout_marginBottom="@dimen/_10sdp">
 
                         <LinearLayout
+                            android:id="@+id/lytSejarah"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/yellow"
@@ -115,6 +116,7 @@
                         android:layout_marginBottom="@dimen/_10sdp">
 
                         <LinearLayout
+                            android:id="@+id/lytAlam"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/green"
@@ -152,6 +154,7 @@
                         android:layout_marginBottom="@dimen/_10sdp">
 
                         <LinearLayout
+                            android:id="@+id/lytPendidikan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/colorPrimary"
@@ -189,6 +192,7 @@
                         android:layout_marginBottom="@dimen/_10sdp">
 
                         <LinearLayout
+                            android:id="@+id/lytReligi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/red"

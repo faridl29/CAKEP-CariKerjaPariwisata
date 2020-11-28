@@ -21,5 +21,6 @@ class PlaceDetailViewModel : ViewModel() {
         desc.set(place.place_desc)
         price.set(place.place_price)
         time.set(place.place_time)
+        like.set(place.like_count)
     }
 }

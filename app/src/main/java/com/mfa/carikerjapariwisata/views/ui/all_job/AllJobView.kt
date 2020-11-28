@@ -7,4 +7,6 @@ interface AllJobView : View {
     fun onSuccess(result: List<Jobs>)
     fun onFailed(error: String)
     fun onEmpty()
+    fun onSuccessBookmarkJob(status: Boolean)
+    fun onFailedBookmarkJob(error: String)
 }
