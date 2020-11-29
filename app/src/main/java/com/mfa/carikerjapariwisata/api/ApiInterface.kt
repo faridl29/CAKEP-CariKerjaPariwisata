@@ -41,9 +41,27 @@ interface ApiInterface {
     @GET("Job/get")
     fun getJobList(@Query("user_id") user_id: String?): Call<GetJobs?>?
 
+    @GET("Job/get_bookmarked_job/{user_id}")
+    fun getBookmarkedJob(@Path("user_id") user_id: String?): Call<GetJobs?>?
+
     @Multipart
     @POST("Job/create")
     open fun crete_job(
+        @Part("job_title") job_title: String?,
+        @Part file: MultipartBody.Part?,
+        @Part("job_place") job_place: String?,
+        @Part("job_date_end") job_date_end: String?,
+        @Part("job_sallary") job_sallary: String?,
+        @Part("job_city") job_city: String?,
+        @Part("job_desc") job_desc: String?,
+        @Part("photo") photo: String?,
+        @Part("user_id") user_id: String?
+    ): Call<ResponseBody?>?
+
+    @Multipart
+    @POST("Job/edit_job/{job_id}")
+    open fun edit_job(
+        @Path("job_id") job_id: String?,
         @Part("job_title") job_title: String?,
         @Part file: MultipartBody.Part?,
         @Part("job_place") job_place: String?,
@@ -89,4 +107,7 @@ interface ApiInterface {
         @Part("user_id") user_id: String?,
         @Part("job_id") job_id: String?
     ): Call<ResponseBody?>?
+
+    @GET("Job/delete_job/{id}")
+    fun deleteJob(@Path("id") id: String?): Call<ResponseBody?>?
 }

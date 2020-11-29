@@ -75,16 +75,17 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/icDelete"
+                android:id="@+id/ivDelete"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
                 android:src="@drawable/ic_delete"
                 android:layout_alignParentRight="true"/>
 
             <ImageView
+                android:id="@+id/ivEdit"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                android:layout_below="@+id/icDelete"
+                android:layout_below="@+id/ivDelete"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:src="@drawable/ic_edit"
                 android:layout_alignParentRight="true"/>

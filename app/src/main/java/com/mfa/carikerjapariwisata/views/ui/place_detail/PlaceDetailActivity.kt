@@ -94,7 +94,7 @@ class PlaceDetailActivity : AppCompatActivity(), PlaceDetailView {
 
     override fun onSuccessLikePlace(status: Boolean) {
         RESULT_CODE = Activity.RESULT_OK
-        place?.like = status
+        place.like = status
         if(status == true){
             binding.fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_active))
         }else{

@@ -1,5 +1,6 @@
 package com.mfa.carikerjapariwisata.views.ui.job
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.mfa.carikerjapariwisata.adapter.JobAdapter
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.views.ui.all_job.AllJobActivity
+import com.mfa.carikerjapariwisata.views.ui.bookmarked_job.BookmarkedJobActivity
 import com.mfa.carikerjapariwisata.views.ui.create_job.CreateJobActivity
 import com.mfa.carikerjapariwisata.views.ui.job_detail.JobDetailFragment
 import kotlinx.android.synthetic.main.fragment_job.*
@@ -46,12 +48,24 @@ class JobFragment : Fragment(), JobView {
 
         ivLoadAll.setOnClickListener {
             val intent = Intent(activity, AllJobActivity::class.java)
+            intent.putExtra(AllJobActivity.ACTIVITY_TYPE, "all_job")
+            startActivityForResult(intent, REQUEST_CODE)
+        }
+
+        etSearch.setOnClickListener {
+            val intent = Intent(activity, AllJobActivity::class.java)
+            intent.putExtra(AllJobActivity.ACTIVITY_TYPE, "search")
             startActivityForResult(intent, REQUEST_CODE)
         }
 
         btCreateJob.setOnClickListener {
             val intent = Intent(activity, CreateJobActivity::class.java)
             startActivity(intent)
+        }
+
+        ivBookmarkedJob.setOnClickListener {
+            val intent = Intent(activity, BookmarkedJobActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
         }
     }
 
@@ -70,6 +84,7 @@ class JobFragment : Fragment(), JobView {
                 val sheet = JobDetailFragment()
                 var args = Bundle()
                 args.putParcelable(JobDetailFragment.EXTRA_JOB, data)
+                args.putString(JobDetailFragment.ACTIVITY_TYPE, "JobFragment")
                 sheet.setArguments(args)
                 fragmentManager?.let { it1 -> sheet.show(it1, "JobDetailFragment") }
             }
@@ -85,6 +100,12 @@ class JobFragment : Fragment(), JobView {
             }
 
         })
+    }
+
+    fun refresh_data(resultCode: Int){
+        if(resultCode == RESULT_OK){
+            presenter.get_job_list()
+        }
     }
 
     override fun onFailed(error: String) {
@@ -121,10 +142,10 @@ class JobFragment : Fragment(), JobView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        jobAdapter.notifyDataSetChanged()
-        if(requestCode == REQUEST_CODE){
-            jobAdapter.notifyDataSetChanged()
+        if (requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                presenter.get_job_list()
+            }
         }
     }
 }

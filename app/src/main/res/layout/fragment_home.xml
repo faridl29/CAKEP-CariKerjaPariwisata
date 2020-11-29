@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Destination"
+                android:text="Destinasi Wisata"
                 android:textSize="@dimen/_18sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:textColor="@color/black_70"/>
@@ -219,6 +219,30 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/destinasi_terbaru"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black_60"/>
+
+            <ImageView
+                android:id="@+id/ivLoadAll"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_chevron_right"
+                android:layout_alignParentRight="true"
+                app:tint="@color/black_60" />
+
+
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPlaces"

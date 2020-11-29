@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -82,7 +83,7 @@ class ApplicantActivity : AppCompatActivity(), ApplicantView {
     }
 
     override fun onEmpty() {
-        Toast.makeText(this, "data empty", Toast.LENGTH_SHORT).show()
+        lytListEmpty.visibility = View.VISIBLE
     }
 
     override fun onAttachView() {

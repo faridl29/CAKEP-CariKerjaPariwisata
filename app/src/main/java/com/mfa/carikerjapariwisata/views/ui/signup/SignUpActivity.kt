@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
+import com.mfa.carikerjapariwisata.MainActivity
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.views.ui.signin.SignInActivity
@@ -65,6 +66,11 @@ class SignUpActivity : AppCompatActivity(), SignUpView {
             return
         }
 
+        if(password.toString().length < 8){
+            etPassword.setError("Password minimal 8 karakter!")
+            return
+        }
+
         if(TextUtils.isEmpty(confirmPassword)){
             etConfirmPassword.setError("Kolom Konfirmasi password harus diisi!")
             return
@@ -75,15 +81,24 @@ class SignUpActivity : AppCompatActivity(), SignUpView {
             return
         }
 
-        if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(fullname)){
+        if(!password.toString().equals(confirmPassword.toString())){
+            etConfirmPassword.setError("Password tidak cocok!")
+            return
+        }
+
+        if(!cbPrivacyPolicy.isChecked){
+            globalFunction?.createSnackBar(layout, "You must accept out privacy policy", R.color.green)
+        }
+
+        if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(fullname) && password.toString().equals(confirmPassword.toString()) && cbPrivacyPolicy.isChecked && password.toString().length >= 8){
             presenter.signUpRequest(email.toString(), password.toString(), fullname.toString())
         }
     }
 
     override fun onSuccess() {
         val globalFunction = GlobalFunction(this)
-        globalFunction.createSnackBar(layout, "Registrasi berhasil /n Login untuk masuk ke aplikasi!", R.color.colorPrimary)
         val intent = Intent(this, SignInActivity::class.java)
+        intent.putExtra("request_code", SignInActivity.REQUEST_CODE)
         startActivity(intent)
     }
 

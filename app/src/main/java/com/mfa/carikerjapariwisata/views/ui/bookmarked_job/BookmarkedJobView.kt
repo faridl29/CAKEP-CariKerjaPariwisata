@@ -1,12 +1,12 @@
-package com.mfa.carikerjapariwisata.views.ui.posted_job
+package com.mfa.carikerjapariwisata.views.ui.bookmarked_job
 
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.views.base.View
 
-interface PostedJobView : View {
+interface BookmarkedJobView : View {
     fun onSuccess(result: List<Jobs>)
     fun onFailed(error: String)
     fun onEmpty()
-    fun onSuccessDeleteJob()
-    fun onFailedDeleteJob()
+    fun onSuccessBookmarkJob(status: Boolean)
+    fun onFailedBookmarkJob(error: String)
 }

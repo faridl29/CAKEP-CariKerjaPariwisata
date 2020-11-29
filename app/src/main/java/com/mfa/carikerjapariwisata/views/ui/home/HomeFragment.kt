@@ -76,6 +76,12 @@ class HomeFragment : Fragment(), HomeView {
             startActivityForResult(intent, 1)
         }
 
+        ivLoadAll.setOnClickListener {
+            var intent = Intent(activity, AllPlaceActivity::class.java)
+            intent.putExtra("category_id", 0)
+            startActivityForResult(intent, 1)
+        }
+
     }
 
     override fun onSuccess(result: List<Place>) {
@@ -149,6 +155,7 @@ class HomeFragment : Fragment(), HomeView {
     }
 
     override fun onSuccessLikePlace(status: Boolean) {
+        presenter.getFavoritePlace()
         placeAdapter.like_clicked(index, status)
     }
 

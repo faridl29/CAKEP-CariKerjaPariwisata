@@ -8,6 +8,8 @@ import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.model.Place
 import com.mfa.carikerjapariwisata.model.SharedPrefManager
 import com.mfa.carikerjapariwisata.views.base.Presenter
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -40,6 +42,23 @@ class PostedJobPresenter(private var con: Context) : Presenter<PostedJobView> {
 
             override fun onFailure(call: Call<GetJobs?>?, t: Throwable?) {
                 mView?.onFailed(t.toString())
+            }
+        })
+    }
+
+    fun deleteJob(job_id: String?){
+            mInterface.deleteJob(job_id)?.enqueue(object : retrofit2.Callback<ResponseBody?>{
+            override fun onResponse(call: Call<ResponseBody?>?, response: Response<ResponseBody?>?) {
+                val jsonRESULTS = JSONObject(response?.body()?.string())
+                if(jsonRESULTS.getString("response_code") == "200"){
+                    mView?.onSuccessDeleteJob()
+                }else{
+                    mView?.onFailedDeleteJob()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {
+                mView?.onFailed("Tidak dapat terhubung ke server")
             }
         })
     }

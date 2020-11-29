@@ -8,12 +8,20 @@ import com.mfa.carikerjapariwisata.MainActivity
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.views.ui.signup.SignUpActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import kotlinx.android.synthetic.main.activity_sign_in.etEmail
+import kotlinx.android.synthetic.main.activity_sign_in.etPassword
+import kotlinx.android.synthetic.main.activity_sign_in.layout
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 
 class SignInActivity : AppCompatActivity(), SignInView {
     private lateinit var presenter: SignInPresenter
     private var globalFunction: GlobalFunction? = null
+    companion object{
+        val REQUEST_CODE = "1"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +31,10 @@ class SignInActivity : AppCompatActivity(), SignInView {
 
         presenter = SignInPresenter(this)
         onAttachView()
+
+        if(intent.getStringExtra("request_code") == REQUEST_CODE) {
+            globalFunction?.createSnackBar(layout, "Registrasi berhasil /n Login untuk masuk ke aplikasi!", R.color.colorPrimary)
+        }
 
         onClickHandler()
 

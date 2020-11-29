@@ -55,13 +55,15 @@ class PostedJobAdapter internal constructor(private val jobs: List<Jobs>) :
 
                 tvTitle.text = jobs.job_title
                 tvPlace.text = jobs.job_place
-                Picasso.with(context).load(ApiClient.IMAGE_URL+ (jobs.photo))
+                Picasso.with(context).load(ApiClient.JOB_URL+ (jobs.photo))
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)
                     .into(ivJobLogo)
 
-                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(jobs) }
+                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(jobs, "show_detail") }
+                ivEdit.setOnClickListener { onItemClickCallback?.onItemClicked(jobs, "edit_job") }
+                ivDelete.setOnClickListener { onItemClickCallback?.onItemClicked(jobs, "delete_job") }
 
                 if(day_count >= 0){
                     tvTimeLeft.text = "Sisa "+(((day.timeInMillis - calCurr.timeInMillis)/ (1000 * 60 * 60 * 24)).toString())+ " hari"
@@ -75,6 +77,6 @@ class PostedJobAdapter internal constructor(private val jobs: List<Jobs>) :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: Jobs)
+        fun onItemClicked(data: Jobs, type: String)
     }
 }

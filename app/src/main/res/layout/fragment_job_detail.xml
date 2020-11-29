@@ -44,24 +44,6 @@
                         android:layout_width="30dp"
                         android:layout_height="0dp" />
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/name_toolbar"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:text="New event"-->
-<!--                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"-->
-<!--                        android:textColor="@android:color/white" />-->
-
-<!--                    <ImageButton-->
-<!--                        android:layout_width="?attr/actionBarSize"-->
-<!--                        android:layout_height="?attr/actionBarSize"-->
-<!--                        android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--                        android:tint="@android:color/white"-->
-<!--                        app:srcCompat="@drawable/ic_baseline_bookmark_border_24"-->
-<!--                        tools:ignore="VectorDrawableCompat" />-->
-
                 </LinearLayout>
 
             </com.google.android.material.appbar.AppBarLayout>
@@ -107,6 +89,7 @@
                                 </androidx.cardview.widget.CardView>
 
                                 <ImageView
+                                    android:id="@+id/ivBookmark"
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
                                     android:src="@drawable/ic_bookmark_not_active"
@@ -116,7 +99,6 @@
                                     android:id="@+id/tvCreatedAt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="4 hari yang lalu"
                                     android:textColor="@color/black_40"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_alignParentRight="true"
@@ -128,7 +110,6 @@
                                 android:id="@+id/tvTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{viewModel.title}"
                                 android:layout_below="@+id/logo"
                                 android:textColor="@color/black_60"
                                 android:textSize="@dimen/_16sdp"
@@ -138,7 +119,6 @@
                                 android:id="@+id/tvPlace"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{viewModel.place}"
                                 android:layout_below="@+id/tvTitle"
                                 android:textColor="@color/black_40"
                                 android:textSize="@dimen/_12sdp"/>
@@ -147,7 +127,6 @@
                                 android:id="@+id/tvTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{viewModel.dateEnd}"
                                 android:layout_below="@+id/tvPlace"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/_12sdp"/>
@@ -184,7 +163,6 @@
                                 android:id="@+id/tvJobDesk"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{viewModel.desc}"
                                 android:textColor="@color/black_40"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lineSpacingExtra="@dimen/_1sdp"
@@ -203,7 +181,6 @@
                                 android:id="@+id/tvGaji"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{viewModel.sallary}"
                                 android:textColor="@color/black_40"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lineSpacingExtra="@dimen/_1sdp"

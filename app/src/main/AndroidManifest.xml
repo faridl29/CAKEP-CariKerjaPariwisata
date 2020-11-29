@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.ui.all_place.AllPlaceActivity"></activity>
+        <activity android:name=".views.ui.edit_job.EditJobActivity"></activity>
+        <activity android:name=".views.ui.bookmarked_job.BookmarkedJobActivity" />
+        <activity android:name=".views.ui.all_place.AllPlaceActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -27,9 +29,7 @@
         </provider>
 
         <activity android:name=".views.ui.applicant.ApplicantActivity" />
-        <activity
-            android:name=".views.ui.all_job.AllJobActivity"
-            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".views.ui.all_job.AllJobActivity" />
         <activity android:name=".views.ui.ApplicantActivity" />
         <activity android:name=".views.ui.posted_job.PostedJobActivity" />
         <activity android:name=".views.ui.apply_job.ApplyJobActivity" />

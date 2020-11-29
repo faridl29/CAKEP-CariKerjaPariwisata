@@ -11,20 +11,18 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_10sdp"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/bt_close"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="match_parent"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="@android:color/white"
                 app:srcCompat="@drawable/ic_chevron_left"
@@ -35,102 +33,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Pekerjaan"
-                android:textSize="@dimen/_18sdp"
+                android:gravity="center"
+                android:text="Bookmark"
+                android:layout_marginRight="?attr/actionBarSize"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white" />
 
-
-            <ImageView
-                android:id="@+id/ivBookmarkedJob"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/ic_bookmark_not_active"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                app:tint="@color/white" />
-
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:padding="@dimen/_5sdp"
-                android:layout_toLeftOf="@id/lytFilter"
-                android:background="@drawable/bg_text_input_rounded"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_search"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text"
-                    android:imeOptions="actionSearch"
-                    android:hint="Cari Pekerjaan"
-                    android:paddingLeft="@dimen/_5sdp"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:lines="1"
-                    android:textColorHint="@color/black_60"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14sdp"
-                    android:background="@android:color/transparent"/>
-
-                <ImageView
-                    android:id="@+id/iv_clear_text"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:adjustViewBounds="true"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_close"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lytFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
-
-<!--                <ImageView-->
-<!--                    android:layout_width="@dimen/_25sdp"-->
-<!--                    android:layout_height="@dimen/_25sdp"-->
-<!--                    android:layout_gravity="right"-->
-<!--                    android:src="@drawable/ic_filter"-->
-<!--                    app:tint="@color/white" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="@dimen/_14sdp"-->
-<!--                    android:layout_marginLeft="@dimen/_5sdp"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:text="Filter"/>-->
-
-            </LinearLayout>
-
-        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -220,7 +129,7 @@
                 android:gravity="center"
                 android:textColor="@color/grey_40"
                 android:textSize="@dimen/_12sdp"
-                android:text="Daftar pekerjaan kosong"/>
+                android:text="Daftar bookmark pekerjaan kosong"/>
 
         </LinearLayout>
 

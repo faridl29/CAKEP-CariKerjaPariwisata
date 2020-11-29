@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:id="@+id/layout"
     android:clickable="true"
     tools:context=".views.ui.job.JobFragment">
@@ -11,7 +12,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -34,6 +34,7 @@
                     android:maxWidth="@dimen/_210sdp"/>
 
                 <ImageView
+                    android:id="@+id/ivBookmarkedJob"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:src="@drawable/ic_bookmark_not_active"
@@ -45,12 +46,13 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/search"
+                android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:background="@drawable/bg_text_input_rounded"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
+                android:focusable="false"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_30sdp"
                 android:hint="Cari Pekerjaan"
@@ -116,13 +118,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pekerjaan_terbaru"
-                    android:textSize="@dimen/_16sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black_60"/>
 
                 <ImageView
                     android:id="@+id/ivLoadAll"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
                     android:src="@drawable/ic_chevron_right"
                     android:layout_alignParentRight="true"
                     app:tint="@color/black_60" />
@@ -133,7 +135,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvJobs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingBottom="@dimen/_20sdp"
                 android:clipToPadding="false"
                 android:overScrollMode="never"/>
