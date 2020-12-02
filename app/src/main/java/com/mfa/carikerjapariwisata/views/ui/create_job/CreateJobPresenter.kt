@@ -29,6 +29,7 @@ class CreateJobPresenter(private var con: Context) : Presenter<CreateJobView> {
     }
 
     fun createJob(jobs: Jobs, file: String?){
+        mView?.onShowLoading()
         val file = File(file)
 
         val requestFile: RequestBody = RequestBody.create(
@@ -51,10 +52,12 @@ class CreateJobPresenter(private var con: Context) : Presenter<CreateJobView> {
         )?.enqueue(object : retrofit2.Callback<ResponseBody?> {
 
             override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {
+                mView?.onHideLoading()
                 mView?.onFailed(t.toString())
             }
 
             override fun onResponse(call: Call<ResponseBody?>?, response: Response<ResponseBody?>?) {
+                mView?.onHideLoading()
                 mView?.onSuccess()
             }
 

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mfa.carikerjapariwisata.R
@@ -36,9 +37,10 @@ class JobDetailFragment : SuperBottomSheetFragment(), JobDetailView {
     private lateinit var presenter: JobDetailPresenter
     private lateinit var binding: FragmentJobDetailBinding
     private lateinit var sharedPrefManager: SharedPrefManager
-    private var mBehavior: BottomSheetBehavior<View>? = null
     private lateinit var job: Jobs
     private lateinit var activity_type: String
+    private var mBehavior: BottomSheetBehavior<View>? = null
+    private var REQUEST_CODE = 11
     private var RESULT_CODE = 0
 
     companion object {
@@ -84,7 +86,7 @@ class JobDetailFragment : SuperBottomSheetFragment(), JobDetailView {
             binding.ivBookmark.setImageDrawable(resources.getDrawable(R.drawable.ic_bookmark_not_active))
         }
 
-        Picasso.with(context).load(ApiClient.JOB_URL+ (job?.photo))
+        Picasso.get().load(ApiClient.JOB_URL+ (job?.photo))
             .networkPolicy(NetworkPolicy.NO_CACHE)
             .memoryPolicy(MemoryPolicy.NO_CACHE)
             .error(R.drawable.im_slider1)
@@ -102,7 +104,7 @@ class JobDetailFragment : SuperBottomSheetFragment(), JobDetailView {
             }else{
                 val intent = Intent(activity, ApplyJobActivity::class.java)
                 intent.putExtra("job_id", job.id)
-                startActivity(intent)
+                startActivityForResult(intent, REQUEST_CODE)
             }
         }
 
@@ -154,6 +156,18 @@ class JobDetailFragment : SuperBottomSheetFragment(), JobDetailView {
             (activity as PostedJobActivity?)?.refresh_data(RESULT_CODE)
         }
         super.onDismiss(dialog)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Yeay!")
+                    .setContentText("Lamaran berhasil dikirim!")
+                    .show()
+            }
+        }
     }
 
 }

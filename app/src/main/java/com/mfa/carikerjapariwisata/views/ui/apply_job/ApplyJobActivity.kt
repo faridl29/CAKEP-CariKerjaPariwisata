@@ -2,6 +2,7 @@ package com.mfa.carikerjapariwisata.views.ui.apply_job
 
 import android.Manifest
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -18,7 +19,10 @@ import androidx.core.view.isVisible
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.utils.FilePath
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
+import kotlinx.android.synthetic.main.activity_all_job.*
 import kotlinx.android.synthetic.main.activity_apply_job.*
+import kotlinx.android.synthetic.main.activity_apply_job.bt_close
+import kotlinx.android.synthetic.main.activity_apply_job.layout
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,6 +32,7 @@ import java.io.File
 class ApplyJobActivity : AppCompatActivity(), ApplyJobView {
     private lateinit var presenter: ApplyJobPresenter
     private lateinit var globalFunction: GlobalFunction
+    private lateinit var progress: ProgressDialog
     private var selectedFilePaths: ArrayList<String> = ArrayList()
     private var selectedImageName: String? = null
     private val REQUEST_EXTERNAL_STORAGE = 1
@@ -83,6 +88,10 @@ class ApplyJobActivity : AppCompatActivity(), ApplyJobView {
 
         attachment5.setOnClickListener {
             openImageChooser(REQUEST_CODE_PICK_FILE5)
+        }
+
+        bt_close.setOnClickListener {
+            finish()
         }
 
         ibSubmit.setOnClickListener {
@@ -218,11 +227,26 @@ class ApplyJobActivity : AppCompatActivity(), ApplyJobView {
     }
 
     override fun onSuccess(message: String) {
-        globalFunction.createSnackBar(layout, message, R.color.colorPrimary, "success")
+        var intent = Intent()
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     override fun onFailed(error: String) {
         globalFunction.createSnackBar(layout, error, R.color.red, "error")
+    }
+
+    override fun onShowLoading() {
+        progress = ProgressDialog(this)
+        progress.setTitle("Menyimpan data")
+        progress.setMessage("Harap tunggu...")
+        progress.setCancelable(false) // disable dismiss by tapping outside of the dialog
+
+        progress.show()
+    }
+
+    override fun onHideLoading() {
+        progress.dismiss()
     }
 
     override fun onAttachView() {

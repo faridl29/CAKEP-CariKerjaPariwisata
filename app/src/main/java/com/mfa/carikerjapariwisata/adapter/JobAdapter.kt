@@ -102,7 +102,7 @@ class JobAdapter internal constructor(private val jobs: List<Jobs>, private val 
                 if(day_count >= 0){
                     tvTitle.text = jobs.job_title
                     tvPlace.text = jobs.job_place
-                    Picasso.with(context).load(ApiClient.JOB_URL+ (jobs.photo))
+                    Picasso.get().load(ApiClient.JOB_URL+ (jobs.photo))
                         .networkPolicy(NetworkPolicy.NO_CACHE)
                         .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .error(R.drawable.im_slider1)

@@ -107,7 +107,7 @@ class PlaceAdapter internal constructor(private var places: List<Place>, private
                 tvTitle.text = place.place_name
                 tvCity.text = place.place_city
                 tvLike.text = place.like_count
-                Picasso.with(context).load(ApiClient.IMAGE_URL+ (place.photo_main))
+                Picasso.get().load(ApiClient.IMAGE_URL+ (place.photo_main))
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)
@@ -138,6 +138,12 @@ class PlaceAdapter internal constructor(private var places: List<Place>, private
 
     fun like_clicked(position: Int, like: Boolean?){
         places[position].like = like
+        if(like == true){
+            places[position].like_count = (places[position].like_count?.toInt()?.plus(1)).toString()
+        }else{
+            places[position].like_count = (places[position].like_count?.toInt()?.minus(1)).toString()
+        }
+
         notifyItemChanged(position)
     }
 }

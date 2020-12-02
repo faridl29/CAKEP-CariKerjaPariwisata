@@ -25,6 +25,17 @@ interface ApiInterface {
         @Part("fullname") fullname: String
     ): Call<ResponseBody>
 
+    @Multipart
+    @POST("Auth/edit_profile/{user_id}")
+    open fun edit_profile(
+        @Path("user_id") user_id: String?,
+        @Part("name") name: String?,
+        @Part("email") email: String?,
+        @Part("telepon") telepon: String?,
+        @Part("photo") photo: String?,
+        @Part file: MultipartBody.Part?
+    ): Call<ResponseBody?>?
+
     @GET("Place/get")
     fun getPlaceList(
         @Query("user_id") user_id: String?,

@@ -20,10 +20,14 @@ import com.mfa.carikerjapariwisata.model.Place
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.utils.GridSpacingItemDecoration
 import com.mfa.carikerjapariwisata.views.ui.place_detail.PlaceDetailActivity
+import kotlinx.android.synthetic.main.activity_all_job.*
 import kotlinx.android.synthetic.main.activity_all_job.iv_clear_text
 import kotlinx.android.synthetic.main.activity_all_job.layout
 import kotlinx.android.synthetic.main.activity_all_job.searchView
 import kotlinx.android.synthetic.main.activity_all_place.*
+import kotlinx.android.synthetic.main.activity_all_place.bt_close
+import kotlinx.android.synthetic.main.activity_all_place.lytListEmpty
+import kotlinx.android.synthetic.main.activity_all_place.lytSearhEmpty
 
 
 class AllPlaceActivity : AppCompatActivity(), AllPlaceView {
@@ -58,6 +62,10 @@ class AllPlaceActivity : AppCompatActivity(), AllPlaceView {
 
         iv_clear_text.setOnClickListener {
             searchView.text = null
+        }
+
+        bt_close.setOnClickListener {
+            finish()
         }
 
         /*hide/show clear button in search view*/

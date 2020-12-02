@@ -3,14 +3,17 @@ package com.mfa.carikerjapariwisata.views.ui.place_detail
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.api.ApiClient
-import com.mfa.carikerjapariwisata.databinding.ActivityPlaceDetailBinding
 import com.mfa.carikerjapariwisata.model.Place
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
@@ -20,10 +23,13 @@ import kotlinx.android.synthetic.main.activity_place_detail.*
 
 class PlaceDetailActivity : AppCompatActivity(), PlaceDetailView {
 
-    private lateinit var binding: ActivityPlaceDetailBinding
     private lateinit var viewModel: PlaceDetailViewModel
     private lateinit var presenter: PlaceDetailPresenter
     private lateinit var place: Place
+    private var collapsingToolbar: CollapsingToolbarLayout? = null
+    private var appBarLayout: AppBarLayout? = null
+    private var collapsedMenu: Menu? = null
+    private var appBarExpanded = true
     private var RESULT_CODE = 0
 
     companion object {
@@ -36,7 +42,7 @@ class PlaceDetailActivity : AppCompatActivity(), PlaceDetailView {
 
         presenter = PlaceDetailPresenter(this)
         onAttachView()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_place_detail)
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_place_detail)
 //        viewModel = ViewModelProviders.of(this).get(PlaceDetailViewModel::class.java)
 
 //        binding.viewModel = viewModel
@@ -44,61 +50,84 @@ class PlaceDetailActivity : AppCompatActivity(), PlaceDetailView {
         place = intent.getParcelableExtra<Place>(EXTRA_PLACE)
 //        viewModel.setData(place)
 
-        binding.tvTitle.text = place?.place_name
-        binding.tvCity.text = place?.place_city
-        binding.tvDesc.text = place?.place_desc
-        binding.tvPrice.text = place?.place_price
-        binding.tvTime.text = place?.place_time
-        binding.tvLikes.text = place?.like_count
+        tvTitle.text = place?.place_name
+        tvCity.text = place?.place_city
+        tvDesc.text = place?.place_desc
+        tvPrice.text = place?.place_price
+        tvTime.text = place?.place_time
+        tvLikes.text = place?.like_count
 
-        Picasso.with(this).load(ApiClient.IMAGE_URL+ (place.photo_main))
+        Picasso.get().load(ApiClient.IMAGE_URL+ (place.photo_main))
             .networkPolicy(NetworkPolicy.NO_CACHE)
             .memoryPolicy(MemoryPolicy.NO_CACHE)
             .error(R.drawable.im_slider1)
-            .into(binding.ivMainPhoto)
+            .into(ivMainPhoto)
 
         for ((index, value) in place.galleries!!.withIndex()){
             if(index == 0){
-                Picasso.with(this).load(ApiClient.IMAGE_URL+ (value.gallery_name))
+                Picasso.get().load(ApiClient.IMAGE_URL+ (value.gallery_name))
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)
-                    .into(binding.ivChild1)
+                    .into(ivChild1)
             }else if(index == 1){
-                Picasso.with(this).load(ApiClient.IMAGE_URL+ (value.gallery_name))
+                Picasso.get().load(ApiClient.IMAGE_URL+ (value.gallery_name))
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)
-                    .into(binding.ivChild2)
+                    .into(ivChild2)
             }else if(index == 2){
-                Picasso.with(this).load(ApiClient.IMAGE_URL+ (value.gallery_name))
+                Picasso.get().load(ApiClient.IMAGE_URL+ (value.gallery_name))
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)
-                    .into(binding.ivChild3)
+                    .into(ivChild3)
             }
 
         }
 
         if(place.like == true){
-            binding.fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_active))
+            fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_active))
         }else{
-            binding.fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_not_active))
+            fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_not_active))
         }
 
         fabLike.setOnClickListener {
             presenter.like_place(place?.id)
         }
 
+        initToolbar()
+
     }
+
+    private fun initToolbar() {
+        toolbar.title = place.place_name
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        collapsing_toolbar.setTitle("title")
+        app_bar_layout.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset -> //  Vertical offset == 0 indicates appBar is fully expanded.
+            if (Math.abs(verticalOffset) > 460) {
+                appBarExpanded = false
+                invalidateOptionsMenu()
+            } else {
+                appBarExpanded = true
+                invalidateOptionsMenu()
+            }
+        })
+    }
+
 
     override fun onSuccessLikePlace(status: Boolean) {
         RESULT_CODE = Activity.RESULT_OK
         place.like = status
         if(status == true){
-            binding.fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_active))
+            place.like_count = (place?.like_count?.toInt()?.plus(1)).toString()
+            tvLikes.setText(place.like_count)
+            fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_active))
         }else{
-            binding.fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_not_active))
+            place.like_count = (place?.like_count?.toInt()?.minus(1)).toString()
+            tvLikes.setText(place.like_count)
+            fabLike.setImageDrawable(resources.getDrawable(R.drawable.ic_love_not_active))
         }
     }
 
@@ -125,4 +154,10 @@ class PlaceDetailActivity : AppCompatActivity(), PlaceDetailView {
         finish()
         super.onBackPressed()
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
+    }
+
 }

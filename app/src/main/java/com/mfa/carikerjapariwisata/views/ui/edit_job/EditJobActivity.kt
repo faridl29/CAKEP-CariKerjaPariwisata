@@ -22,7 +22,9 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
+import kotlinx.android.synthetic.main.activity_all_job.*
 import kotlinx.android.synthetic.main.activity_edit_job.*
+import kotlinx.android.synthetic.main.activity_edit_job.bt_close
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -53,7 +55,7 @@ class EditJobActivity : AppCompatActivity(), EditJobView {
         jobs = intent.getParcelableExtra<Jobs>(EXTRA_JOB)
 
 
-        Picasso.with(this).load(ApiClient.JOB_URL + (jobs.photo))
+        Picasso.get().load(ApiClient.JOB_URL + (jobs.photo))
             .networkPolicy(NetworkPolicy.NO_CACHE)
             .memoryPolicy(MemoryPolicy.NO_CACHE)
             .error(R.drawable.ic_image)
@@ -62,7 +64,7 @@ class EditJobActivity : AppCompatActivity(), EditJobView {
         if(jobs.photo == ""){
             tvLogoName.setText("Tambah Logo")
         }else{
-            Picasso.with(this).invalidate(ApiClient.JOB_URL+jobs.photo)
+            Picasso.get().invalidate(ApiClient.JOB_URL+jobs.photo)
             tvLogoName.setText(jobs.photo)
             ivLogo.setPadding(0, 0, 0, 0)
         }
@@ -97,6 +99,10 @@ class EditJobActivity : AppCompatActivity(), EditJobView {
 
         etDateEnd.setOnClickListener {
             showCalendarDialog()
+        }
+
+        bt_close.setOnClickListener {
+            finish()
         }
 
         verifyStoragePermissions(this)
@@ -205,12 +211,12 @@ class EditJobActivity : AppCompatActivity(), EditJobView {
                 filePath = resultUri.path
                 fileName = filePath?.lastIndexOf("/")?.plus(1)?.let { filePath?.substring(it) }
                 mImageUri = resultUri
-                Picasso.with(this).load(mImageUri)
+                Picasso.get().load(mImageUri)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.mipmap.ic_launcher)
                     .into(ivLogo)
-                Picasso.with(this).invalidate(mImageUri)
+                Picasso.get().invalidate(mImageUri)
                 tvLogoName.text = fileName
                 ivLogo.setPadding(0, 0, 0, 0)
                 tvLogoName.setError(null)
@@ -223,8 +229,9 @@ class EditJobActivity : AppCompatActivity(), EditJobView {
     }
 
     override fun onSuccess() {
-        val intent  = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        var intent = Intent()
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     override fun onFailed(error: String) {

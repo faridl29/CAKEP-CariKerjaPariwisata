@@ -29,7 +29,7 @@ class ApplyJobPresenter(private var con:Context) : Presenter<ApplyJobView> {
     }
 
     fun applyJob(data: Map<String, Any>){
-        print(data)
+        mView?.onShowLoading()
         mInterface.apply_job(
             data["email"] as String,
             data["no_telp"] as String,
@@ -40,11 +40,13 @@ class ApplyJobPresenter(private var con:Context) : Presenter<ApplyJobView> {
         )?.enqueue(object : retrofit2.Callback<ResponseBody?> {
 
             override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {
+                mView?.onHideLoading()
                 mView?.onFailed(t.toString())
             }
 
             override fun onResponse(call: Call<ResponseBody?>?, response: Response<ResponseBody?>?) {
                 val jsonRESULTS = JSONObject(response?.body()?.string())
+                mView?.onHideLoading()
                 mView?.onSuccess(jsonRESULTS.getString("message"))
             }
 

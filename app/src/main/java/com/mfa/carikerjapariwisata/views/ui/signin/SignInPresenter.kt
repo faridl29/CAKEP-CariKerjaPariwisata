@@ -36,6 +36,7 @@ class SignInPresenter(private var con: Context) : Presenter<SignInView> {
     }
 
     fun loginRequest(email: String?, password:String?) {
+        mView?.onLoading()
         mInterface = ApiClient.getClient().create(ApiInterface::class.java)
         sharedPrefManager = SharedPrefManager(con)
         print(email)

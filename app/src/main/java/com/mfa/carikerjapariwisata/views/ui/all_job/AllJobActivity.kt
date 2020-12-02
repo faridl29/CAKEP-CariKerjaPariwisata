@@ -64,6 +64,10 @@ class AllJobActivity : AppCompatActivity(), AllJobView {
             searchView.text = null
         }
 
+        bt_close.setOnClickListener {
+            finish()
+        }
+
         /*hide/show clear button in search view*/
 
         val searchViewTextWatcher: TextWatcher = object : TextWatcher {

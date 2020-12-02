@@ -1,11 +1,8 @@
 package com.mfa.carikerjapariwisata.adapter
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mfa.carikerjapariwisata.R
@@ -56,7 +53,7 @@ class ApplicantAdapter internal constructor(private val applicants: List<Applica
                 tvName.text = applicant.name
                 tvCreatedAt.text = applicant.created_at
                 tvDesc.text = applicant.applicant_desc
-                Picasso.with(context).load(ApiClient.IMAGE_URL+ (applicant.photo))
+                Picasso.get().load(ApiClient.IMAGE_URL+ (applicant.photo))
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)

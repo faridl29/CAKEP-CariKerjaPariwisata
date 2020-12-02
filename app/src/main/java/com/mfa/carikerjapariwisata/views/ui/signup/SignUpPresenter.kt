@@ -25,6 +25,7 @@ class SignUpPresenter(private var con: Context) : Presenter<SignUpView> {
         password: String,
         fullname: String
     ){
+        mView?.onLoading()
         var mInterface = ApiClient.getClient().create(ApiInterface::class.java)
         mInterface?.registerRequest(email, password, fullname)?.enqueue(object : retrofit2.Callback<ResponseBody?>{
             override fun onResponse(

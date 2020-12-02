@@ -13,7 +13,13 @@ import com.mfa.carikerjapariwisata.adapter.JobAdapter
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.views.ui.job_detail.JobDetailFragment
+import kotlinx.android.synthetic.main.activity_all_job.*
 import kotlinx.android.synthetic.main.activity_bookmarked_job.*
+import kotlinx.android.synthetic.main.activity_bookmarked_job.bt_close
+import kotlinx.android.synthetic.main.activity_bookmarked_job.layout
+import kotlinx.android.synthetic.main.activity_bookmarked_job.lytListEmpty
+import kotlinx.android.synthetic.main.activity_bookmarked_job.lytSearhEmpty
+import kotlinx.android.synthetic.main.activity_bookmarked_job.rvJobs
 
 class BookmarkedJobActivity : AppCompatActivity(), BookmarkedJobView {
     private lateinit var presenter: BookmarkedJobPresenter
@@ -33,6 +39,10 @@ class BookmarkedJobActivity : AppCompatActivity(), BookmarkedJobView {
 
         presenter = BookmarkedJobPresenter(this)
         onAttachView()
+
+        bt_close.setOnClickListener {
+            finish()
+        }
 
     }
 

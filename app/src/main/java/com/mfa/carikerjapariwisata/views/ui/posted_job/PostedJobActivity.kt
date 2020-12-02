@@ -13,11 +13,15 @@ import com.mfa.carikerjapariwisata.model.Jobs
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.views.ui.edit_job.EditJobActivity
 import com.mfa.carikerjapariwisata.views.ui.job_detail.JobDetailFragment
+import kotlinx.android.synthetic.main.activity_all_job.*
 import kotlinx.android.synthetic.main.activity_posted_job.*
+import kotlinx.android.synthetic.main.activity_posted_job.bt_close
+import kotlinx.android.synthetic.main.activity_posted_job.layout
 
 class PostedJobActivity : AppCompatActivity(), PostedJobView {
     private lateinit var presenter: PostedJobPresenter
     private lateinit var globalFunction: GlobalFunction
+    private var REQUEST_CODE = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,10 @@ class PostedJobActivity : AppCompatActivity(), PostedJobView {
         onAttachView()
 
         globalFunction = GlobalFunction(this)
+
+        bt_close.setOnClickListener {
+            finish()
+        }
     }
 
     fun refresh_data(resultCode: Int){
@@ -50,7 +58,7 @@ class PostedJobActivity : AppCompatActivity(), PostedJobView {
                 if(type == "edit_job"){
                     val intent = Intent(this@PostedJobActivity, EditJobActivity::class.java)
                     intent.putExtra(EditJobActivity.EXTRA_JOB, data)
-                    startActivity(intent)
+                    startActivityForResult(intent, REQUEST_CODE)
                 } else if(type == "delete_job"){
                     SweetAlertDialog(this@PostedJobActivity, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Apakah anda yakin?")
@@ -86,8 +94,8 @@ class PostedJobActivity : AppCompatActivity(), PostedJobView {
 
     override fun onSuccessDeleteJob() {
         SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Good job!")
-            .setContentText("Pejerkaan berhasil dihapus!")
+            .setTitleText("Yeay!")
+            .setContentText("Pekerjaan berhasil dihapus!")
             .show()
         presenter.getPostedJob()
     }
@@ -111,5 +119,17 @@ class PostedJobActivity : AppCompatActivity(), PostedJobView {
     override fun onDestroy() {
         onDetachView()
         super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Yeay!")
+                    .setContentText("Pekerjaan berhasil diupdate!")
+                    .show()
+            }
+        }
     }
 }

@@ -66,6 +66,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvEditProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/edit"
@@ -202,6 +203,7 @@
             android:background="@color/black_20"/>
 
         <RelativeLayout
+            android:id="@+id/lytTermsConditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -239,6 +241,7 @@
             android:background="@color/black_20"/>
 
         <RelativeLayout
+            android:id="@+id/lytPrivacyPolicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

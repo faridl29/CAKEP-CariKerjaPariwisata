@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.adapter.JobAdapter
 import com.mfa.carikerjapariwisata.model.Jobs
@@ -19,6 +20,7 @@ import com.mfa.carikerjapariwisata.views.ui.create_job.CreateJobActivity
 import com.mfa.carikerjapariwisata.views.ui.job_detail.JobDetailFragment
 import kotlinx.android.synthetic.main.fragment_job.*
 
+
 class JobFragment : Fragment(), JobView {
 
     private lateinit var root: View
@@ -27,6 +29,7 @@ class JobFragment : Fragment(), JobView {
     private lateinit var jobAdapter: JobAdapter
     private var index: Int = 0
     private var REQUEST_CODE = 11
+    private var REQUEST_CODE_CREATE = 12
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +63,7 @@ class JobFragment : Fragment(), JobView {
 
         btCreateJob.setOnClickListener {
             val intent = Intent(activity, CreateJobActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_CREATE)
         }
 
         ivBookmarkedJob.setOnClickListener {
@@ -146,6 +149,18 @@ class JobFragment : Fragment(), JobView {
             if(resultCode == RESULT_OK){
                 presenter.get_job_list()
             }
+        }else if(requestCode == REQUEST_CODE_CREATE){
+            if(resultCode == RESULT_OK){
+                SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Yeay!")
+                    .setContentText("Pekerjaan berhasil didaftarkan!")
+                    .show()
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.get_job_list()
     }
 }

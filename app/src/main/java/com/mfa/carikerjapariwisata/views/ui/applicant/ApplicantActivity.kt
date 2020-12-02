@@ -16,7 +16,11 @@ import com.mfa.carikerjapariwisata.model.Applicants
 import com.mfa.carikerjapariwisata.model.Attachments
 import com.mfa.carikerjapariwisata.utils.DownloadTask
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
+import kotlinx.android.synthetic.main.activity_all_job.*
 import kotlinx.android.synthetic.main.activity_applicant.*
+import kotlinx.android.synthetic.main.activity_applicant.bt_close
+import kotlinx.android.synthetic.main.activity_applicant.layout
+import kotlinx.android.synthetic.main.activity_applicant.lytListEmpty
 
 
 class ApplicantActivity : AppCompatActivity(), ApplicantView {
@@ -36,6 +40,10 @@ class ApplicantActivity : AppCompatActivity(), ApplicantView {
         onAttachView()
 
         globalFunction = GlobalFunction(this)
+
+        bt_close.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onSuccess(result: List<Applicants>) {

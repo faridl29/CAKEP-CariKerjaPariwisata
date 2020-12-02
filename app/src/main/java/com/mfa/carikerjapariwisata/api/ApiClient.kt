@@ -10,6 +10,7 @@ object ApiClient {
     val IMAGE_URL = URL+"/images/"
     val ATTACHMENT_URL = IMAGE_URL+"applicant_attachment/"
     val JOB_URL = IMAGE_URL+"job/"
+    val PROFILE_URL = IMAGE_URL+"profile/"
 
     fun getClient(): Retrofit {
         val retrofit = Retrofit.Builder()

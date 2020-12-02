@@ -47,7 +47,7 @@ class MainPlaceAdapter internal constructor(private val places: List<Place>) :
             with(itemView) {
                 tvTitle.text = place.place_name
                 tvDesc.text = place.place_desc
-                Picasso.with(context).load(ApiClient.IMAGE_URL+ (place.photo_main))
+                Picasso.get().load(ApiClient.IMAGE_URL+ (place.photo_main))
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.drawable.im_slider1)

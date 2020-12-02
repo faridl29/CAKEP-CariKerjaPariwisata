@@ -6,4 +6,5 @@ interface SignInView : View {
     fun onSuccess()
     fun onFailed(error: String)
     fun onLogged()
+    fun onLoading()
 }

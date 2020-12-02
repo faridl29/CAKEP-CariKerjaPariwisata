@@ -1,19 +1,16 @@
 package com.mfa.carikerjapariwisata.views.ui.signin
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.mfa.carikerjapariwisata.MainActivity
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.utils.GlobalFunction
 import com.mfa.carikerjapariwisata.views.ui.signup.SignUpActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.activity_sign_in.etEmail
-import kotlinx.android.synthetic.main.activity_sign_in.etPassword
-import kotlinx.android.synthetic.main.activity_sign_in.layout
-import kotlinx.android.synthetic.main.activity_sign_up.*
 
 
 class SignInActivity : AppCompatActivity(), SignInView {
@@ -33,7 +30,7 @@ class SignInActivity : AppCompatActivity(), SignInView {
         onAttachView()
 
         if(intent.getStringExtra("request_code") == REQUEST_CODE) {
-            globalFunction?.createSnackBar(layout, "Registrasi berhasil /n Login untuk masuk ke aplikasi!", R.color.colorPrimary)
+            globalFunction?.createSnackBar(layout, "Registrasi berhasil \n Login untuk masuk ke aplikasi!", R.color.colorPrimary)
         }
 
         onClickHandler()
@@ -75,15 +72,23 @@ class SignInActivity : AppCompatActivity(), SignInView {
     }
 
     override fun onSuccess() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.putExtra("request_code", MainActivity.REQUEST_CODE)
-        startActivity(intent)
+        btnSignin.doneLoadingAnimation(resources.getColor(R.color.colorPrimary), BitmapFactory.decodeResource(resources,
+            R.drawable.ic_done_white_48dp))
 
-        finish()
+        val handler = Handler()
+        handler.postDelayed(Runnable { // Do something after 5s = 5000ms
+
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("request_code", MainActivity.REQUEST_CODE)
+            startActivity(intent)
+
+            finish()
+        }, 1000)
     }
 
     override fun onFailed(error: String) {
+        btnSignin.revertAnimation()
         globalFunction?.createSnackBar(layout, error, R.color.red)
     }
 
@@ -92,6 +97,10 @@ class SignInActivity : AppCompatActivity(), SignInView {
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(a)
         finish()
+    }
+
+    override fun onLoading() {
+        btnSignin.startAnimation()
     }
 
     override fun onAttachView() {

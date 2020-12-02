@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/bt_close"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_chevron_left"
+                tools:ignore="VectorDrawableCompat" />
+
+            <TextView
+                android:id="@+id/name_toolbar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Edit Profile"
+                android:layout_marginRight="?attr/actionBarSize"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:scrollingCache="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivProfile"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:src="@drawable/ic_person"
+                        android:padding="@dimen/_20sdp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bg_pict_photo"
+                        android:elevation="@dimen/_4sdp"
+                        app:tint="@color/black_60"/>
+
+                    <ImageView
+                        android:id="@+id/ivPickPhoto"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:src="@drawable/ic_camera"
+                        android:padding="@dimen/_5sdp"
+                        android:background="@drawable/bg_pict_photo"
+                        android:layout_toEndOf="@id/ivProfile"
+                        android:layout_marginTop="@dimen/_85sdp"
+                        android:layout_marginLeft="@dimen/_minus21sdp"
+                        android:elevation="@dimen/_4sdp"
+                        app:tint="@color/black_60" />
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Profile Details"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_17sdp"
+                    android:layout_below="@id/layout"/>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_nama"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_below="@+id/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etFullname"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:hint="Nama"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:inputType="text"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/black_40"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_email"
+                    android:layout_below="@+id/text_input_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:hint="Email"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:inputType="textEmailAddress"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/black_40"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_telepon"
+                    android:layout_below="@+id/text_input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etTelepon"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginLeft="30sp"
+                        android:layout_marginRight="30sp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:hint="Telepon"
+                        android:inputType="text"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/black_40"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:text="Save"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_14sdp"
+            android:background="@drawable/bg_button_white_border_blue"
+            app:spinning_bar_color="@color/colorPrimary"
+            app:initialCornerAngle="@dimen/_40sdp"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

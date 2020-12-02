@@ -24,4 +24,5 @@
     <string name="gaji">Gaji</string>
     <string name="attachment">Lampiran</string>
     <string name="cannot_connect">Tidak dapat terhubung ke server</string>
+    <string name="save">Save</string>
 </resources>

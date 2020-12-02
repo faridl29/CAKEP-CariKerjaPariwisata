@@ -5,4 +5,6 @@ import com.mfa.carikerjapariwisata.views.base.View
 interface ApplyJobView : View {
     fun onSuccess(message: String)
     fun onFailed(error: String)
+    fun onShowLoading()
+    fun onHideLoading()
 }

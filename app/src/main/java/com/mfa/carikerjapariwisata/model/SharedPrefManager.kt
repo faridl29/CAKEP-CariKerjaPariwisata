@@ -27,6 +27,9 @@ class SharedPrefManager(context: Context) {
 	val spEmail: String?
 		get() = sp.getString(SP_EMAIL, "")
 
+	val spTelepon: String?
+		get() = sp.getString(SP_TELEPON, "")
+
 	val spFullName: String?
 		get() = sp.getString(SP_FULLNAME, "")
 
@@ -40,6 +43,7 @@ class SharedPrefManager(context: Context) {
 		const val SP_Cakep = "spCakep"
 		const val SP_ID = "spId"
 		const val SP_EMAIL = "spEmail"
+		const val SP_TELEPON = "spTelepon"
 		const val SP_FULLNAME = "spFullname"
 		const val SP_PROFILE = "spProfile"
 		const val SP_ALREADY_SIGNIN = "spAlreadySignin"

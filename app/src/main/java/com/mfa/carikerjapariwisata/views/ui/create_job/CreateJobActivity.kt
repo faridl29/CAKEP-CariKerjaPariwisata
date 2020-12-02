@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -13,32 +14,25 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModelProviders
 import com.mfa.carikerjapariwisata.BuildConfig
 import com.mfa.carikerjapariwisata.MainActivity
 import com.mfa.carikerjapariwisata.R
-import com.mfa.carikerjapariwisata.api.ApiClient
-import com.mfa.carikerjapariwisata.api.ApiInterface
 import com.mfa.carikerjapariwisata.model.Jobs
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
+import kotlinx.android.synthetic.main.activity_all_job.*
 import kotlinx.android.synthetic.main.activity_create_job.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Response
-import java.io.File
+import kotlinx.android.synthetic.main.activity_create_job.bt_close
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class CreateJobActivity : AppCompatActivity(), CreateJobView {
     private lateinit var presenter: CreateJobPresenter
+    private lateinit var progress: ProgressDialog
     private var filePath: String? = null
     private var fileName: String? = null
     private val REQUEST_EXTERNAL_STORAGE = 1
@@ -79,6 +73,10 @@ class CreateJobActivity : AppCompatActivity(), CreateJobView {
         
         etDateEnd.setOnClickListener {
             showCalendarDialog()
+        }
+
+        bt_close.setOnClickListener {
+            finish()
         }
 
         verifyStoragePermissions(this)
@@ -187,12 +185,12 @@ class CreateJobActivity : AppCompatActivity(), CreateJobView {
                 filePath = resultUri.path
                 fileName = filePath?.lastIndexOf("/")?.plus(1)?.let { filePath?.substring(it) }
                 mImageUri = resultUri
-                Picasso.with(this).load(mImageUri)
+                Picasso.get().load(mImageUri)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .error(R.mipmap.ic_launcher)
                     .into(ivLogo)
-                Picasso.with(this).invalidate(mImageUri)
+                Picasso.get().invalidate(mImageUri)
                 tvLogoName.text = fileName
                 ivLogo.setPadding(0, 0, 0, 0)
                 tvLogoName.setError(null)
@@ -205,12 +203,26 @@ class CreateJobActivity : AppCompatActivity(), CreateJobView {
     }
 
     override fun onSuccess() {
-        val intent  = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        var intent = Intent()
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     override fun onFailed(error: String) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onShowLoading() {
+        progress = ProgressDialog(this)
+        progress.setTitle("Menyimpan data")
+        progress.setMessage("Harap tunggu...")
+        progress.setCancelable(false) // disable dismiss by tapping outside of the dialog
+
+        progress.show()
+    }
+
+    override fun onHideLoading() {
+        progress.dismiss()
     }
 
     override fun onAttachView() {

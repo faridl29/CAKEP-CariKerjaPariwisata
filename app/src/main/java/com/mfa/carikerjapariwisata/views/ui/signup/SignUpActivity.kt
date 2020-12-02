@@ -1,7 +1,9 @@
 package com.mfa.carikerjapariwisata.views.ui.signup
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.mfa.carikerjapariwisata.MainActivity
@@ -96,15 +98,24 @@ class SignUpActivity : AppCompatActivity(), SignUpView {
     }
 
     override fun onSuccess() {
-        val globalFunction = GlobalFunction(this)
-        val intent = Intent(this, SignInActivity::class.java)
-        intent.putExtra("request_code", SignInActivity.REQUEST_CODE)
-        startActivity(intent)
+        btnSignup.doneLoadingAnimation(resources.getColor(R.color.colorPrimary), BitmapFactory.decodeResource(resources,
+            R.drawable.ic_done_white_48dp))
+        val handler = Handler()
+        handler.postDelayed(Runnable {
+            val intent = Intent(this, SignInActivity::class.java)
+            intent.putExtra("request_code", SignInActivity.REQUEST_CODE)
+            startActivity(intent)
+        }, 1000)
     }
 
     override fun onFailed(error: String) {
+        btnSignup.revertAnimation()
         val globalFunction = GlobalFunction(this)
         globalFunction.createSnackBar(layout, error, R.color.red)
+    }
+
+    override fun onLoading() {
+        btnSignup.startAnimation()
     }
 
     override fun onAttachView() {

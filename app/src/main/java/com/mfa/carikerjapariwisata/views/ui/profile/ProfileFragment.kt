@@ -1,5 +1,6 @@
 package com.mfa.carikerjapariwisata.views.ui.profile
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +10,11 @@ import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.mfa.carikerjapariwisata.R
 import com.mfa.carikerjapariwisata.api.ApiClient
+import com.mfa.carikerjapariwisata.views.ui.edit_profile.EditProfileActivity
 import com.mfa.carikerjapariwisata.views.ui.posted_job.PostedJobActivity
+import com.mfa.carikerjapariwisata.views.ui.privacy_policy.PrivacyPolicyActivity
 import com.mfa.carikerjapariwisata.views.ui.signin.SignInActivity
+import com.mfa.carikerjapariwisata.views.ui.terms_conditions.TermsConditionsActivity
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
@@ -18,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), ProfileView {
     private var presenter: ProfilePresenter? = null
+    private var REQUEST_CODE = 11
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -45,6 +50,21 @@ class ProfileFragment : Fragment(), ProfileView {
             logout()
         }
 
+        tvEditProfile.setOnClickListener {
+            val intent = Intent(activity, EditProfileActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
+        }
+
+        lytPrivacyPolicy.setOnClickListener {
+            val intent = Intent(activity, PrivacyPolicyActivity::class.java)
+            startActivity(intent)
+        }
+
+        lytTermsConditions.setOnClickListener {
+            val intent = Intent(activity, TermsConditionsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun logout(){
@@ -61,7 +81,7 @@ class ProfileFragment : Fragment(), ProfileView {
     }
 
     override fun onSuccessGetData(name: String?, profile: String?, email: String?) {
-        Picasso.with(context).load(ApiClient.IMAGE_URL+ profile)
+        Picasso.get().load(ApiClient.PROFILE_URL+ profile)
             .networkPolicy(NetworkPolicy.NO_CACHE)
             .memoryPolicy(MemoryPolicy.NO_CACHE)
             .error(R.drawable.im_slider1)
@@ -90,5 +110,14 @@ class ProfileFragment : Fragment(), ProfileView {
     override fun onDestroy() {
         onDetachView()
         super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                presenter?.getDataUser()
+            }
+        }
     }
 }
